@@ -1,22 +1,25 @@
+-- Drop existing tables if they exist
+DROP TABLE IF EXISTS reservas;
+DROP TABLE IF EXISTS salones;
 
-CREATE TABLE
-    salones (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        code VARCHAR(100),
-        name VARCHAR(255),
-        location VARCHAR(255)
-    );
+-- Table: salones
+CREATE TABLE salones (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    code VARCHAR(100) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    location VARCHAR(255) NOT NULL
+);
 
-CREATE TABLE
-    reservas (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(255),
-        surname VARCHAR(255),
-        location VARCHAR(255),
-        people_amount INT,
-        date DATE,
-        start_time TIME,
-        end_time TIME,
-        salon_id INT,
-        FOREIGN KEY (salon_id) REFERENCES salones (id)
-    );
+-- Table: reservas
+CREATE TABLE reservas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    surname VARCHAR(255) NOT NULL,
+    location VARCHAR(255) NOT NULL,
+    people_amount INT NOT NULL,
+    date DATE NOT NULL,
+    start_time TIME NOT NULL,
+    end_time TIME NOT NULL,
+    salon_id INT NOT NULL,
+    FOREIGN KEY (salon_id) REFERENCES salones(id)
+);

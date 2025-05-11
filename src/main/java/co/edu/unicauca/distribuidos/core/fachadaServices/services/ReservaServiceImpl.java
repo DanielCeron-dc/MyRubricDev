@@ -1,49 +1,84 @@
 package co.edu.unicauca.distribuidos.core.fachadaServices.services;
 
 import co.edu.unicauca.distribuidos.core.capaAccesoADatos.models.ReservaEntity;
+import co.edu.unicauca.distribuidos.core.capaAccesoADatos.models.SalonEntity;
 import co.edu.unicauca.distribuidos.core.capaAccesoADatos.repositories.ReservaRepository;
+import co.edu.unicauca.distribuidos.core.fachadaServices.DTO.ReservaDTOPeticion;
+import co.edu.unicauca.distribuidos.core.fachadaServices.DTO.ReservaDTORespuesta;
+import co.edu.unicauca.distribuidos.core.fachadaServices.DTO.SalonDTORespuesta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.*;
 
 @Service
 public class ReservaServiceImpl implements IReservaService {
 
-    private final ReservaRepository reservaRepository;
-
     @Autowired
-    public ReservaServiceImpl(ReservaRepository reservaRepository) {
-        this.reservaRepository = reservaRepository;
+    private ReservaRepository reservaRepository;
+
+    @Override
+    public List<ReservaDTORespuesta> findAll() {
+        return reservaRepository.findAll()
+            .map(coll -> coll.stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList()))
+            .orElse(Collections.emptyList());
     }
 
     @Override
-    public List<ReservaEntity> findAll() {
-        Optional<Collection<ReservaEntity>> reservasOptional = reservaRepository.findAll();
-        return reservasOptional.map(ArrayList::new).orElseGet(ArrayList::new);
+    public Optional<ReservaDTORespuesta> findById(Integer id) {
+        return reservaRepository.findById(id).map(this::toDTO);
     }
 
     @Override
-    public Optional<ReservaEntity> findById(Integer id) {
-        return reservaRepository.findById(id);
+    public ReservaDTORespuesta save(ReservaDTOPeticion dto) {
+        ReservaEntity entity = toEntity(dto);
+        ReservaEntity saved = reservaRepository.save(entity);
+        return toDTO(saved);
     }
 
     @Override
-    public ReservaEntity save(ReservaEntity reserva) {
-        return reservaRepository.save(reserva);
-    }
-
-    @Override
-    public Optional<ReservaEntity> update(Integer id, ReservaEntity reserva) {
-        return reservaRepository.update(id, reserva);
+    public Optional<ReservaDTORespuesta> update(Integer id, ReservaDTOPeticion dto) {
+        ReservaEntity entity = toEntity(dto);
+        return reservaRepository.update(id, entity)
+                .map(this::toDTO);
     }
 
     @Override
     public boolean delete(Integer id) {
         return reservaRepository.delete(id);
     }
-}
 
+    private ReservaDTORespuesta toDTO(ReservaEntity e) {
+        SalonDTORespuesta salonDto = new SalonDTORespuesta(e.getObjSalon().getId(), 
+            e.getObjSalon().getCode(), e.getObjSalon().getName(), e.getObjSalon().getLocation());
+        return new ReservaDTORespuesta(
+            e.getId(),
+            e.getName(),
+            e.getSurname(),
+            e.getLocation(),
+            e.getPeopleAmount(),
+            e.getDate(),
+            e.getStartTime(),
+            e.getEndTime(),
+            salonDto
+        );
+    }
+
+    private ReservaEntity toEntity(ReservaDTOPeticion dto) {
+        ReservaEntity e = new ReservaEntity();
+        e.setName(dto.getName());
+        e.setSurname(dto.getSurname());
+        e.setLocation(dto.getLocation());
+        e.setPeopleAmount(dto.getPeopleAmount());
+        e.setDate(new java.sql.Date(dto.getDate().getTime()));
+        e.setStartTime(dto.getStartTime());
+        e.setEndTime(dto.getEndTime());
+        SalonEntity s = new SalonEntity();
+        s.setId(dto.getObjSalon().getId());
+        e.setObjSalon(s);
+        return e;
+    }
+}

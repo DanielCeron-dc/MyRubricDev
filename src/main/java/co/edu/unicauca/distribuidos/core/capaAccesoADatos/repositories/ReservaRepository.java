@@ -20,7 +20,9 @@ public class ReservaRepository {
     }
 
     public Optional<Collection<ReservaEntity>> findAll() {
-        String sql = "SELECT * FROM reservas";
+        String sql = "SELECT r.*, s.code as salon_code, s.name as salon_name, s.location as salon_location " +
+                "FROM reservas r " +
+                "LEFT JOIN salones s ON r.salon_id = s.id";
         Collection<ReservaEntity> reservas = new LinkedList<>();
         conexion.conectar();
         try (PreparedStatement ps = conexion.getConnection().prepareStatement(sql);
@@ -38,7 +40,10 @@ public class ReservaRepository {
     }
 
     public Optional<ReservaEntity> findById(Integer id) {
-        String sql = "SELECT * FROM reservas WHERE id = ?";
+        String sql = "SELECT r.*, s.code as salon_code, s.name as salon_name, s.location as salon_location " +
+                "FROM reservas r " +
+                "LEFT JOIN salones s ON r.salon_id = s.id " +
+                "WHERE r.id = ?";
         conexion.conectar();
         try (PreparedStatement ps = conexion.getConnection().prepareStatement(sql)) {
             ps.setInt(1, id);
@@ -73,7 +78,8 @@ public class ReservaRepository {
         } finally {
             conexion.desconectar();
         }
-        return reserva;
+        // now re-fetch the record with its joined Salon data
+        return findById(reserva.getId()).orElse(reserva);
     }
 
     public Optional<ReservaEntity> update(Integer id, ReservaEntity reserva) {
@@ -84,8 +90,8 @@ public class ReservaRepository {
             fillStatement(ps, reserva);
             ps.setInt(9, id);
             if (ps.executeUpdate() > 0) {
-                reserva.setId(id);
-                return Optional.of(reserva);
+                // return the freshly joined record
+                return findById(id);
             }
         } catch (SQLException e) {
             System.out.println("Error updating reserva: " + e.getMessage());
@@ -119,8 +125,13 @@ public class ReservaRepository {
         r.setDate(rs.getDate("date"));
         r.setStartTime(rs.getString("start_time"));
         r.setEndTime(rs.getString("end_time"));
+
         SalonEntity s = new SalonEntity();
         s.setId(rs.getInt("salon_id"));
+        // Map the salon properties from the joined table
+        s.setCode(rs.getString("salon_code"));
+        s.setName(rs.getString("salon_name"));
+        s.setLocation(rs.getString("salon_location"));
         r.setObjSalon(s);
         return r;
     }
