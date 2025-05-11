@@ -18,5 +18,6 @@ public class ReservaDTORespuesta {
     private Date date;
     private String startTime;
     private String endTime;
+    private String status;
     private SalonDTORespuesta objSalon;
 }

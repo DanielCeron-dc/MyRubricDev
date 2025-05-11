@@ -21,5 +21,6 @@ CREATE TABLE reservas (
     start_time TIME NOT NULL,
     end_time TIME NOT NULL,
     salon_id INT NOT NULL,
+    status VARCHAR(10) NOT NULL DEFAULT 'pending',
     FOREIGN KEY (salon_id) REFERENCES salones(id)
 );

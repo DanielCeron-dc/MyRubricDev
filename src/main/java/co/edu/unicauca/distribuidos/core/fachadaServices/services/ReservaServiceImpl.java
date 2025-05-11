@@ -42,6 +42,9 @@ public class ReservaServiceImpl implements IReservaService {
     @Override
     public Optional<ReservaDTORespuesta> update(Integer id, ReservaDTOPeticion dto) {
         ReservaEntity entity = toEntity(dto);
+        System.out.println("ID: " + id);
+        System.out.println("Entity: " + entity);
+        System.out.println("status: " + entity.getStatus());
         return reservaRepository.update(id, entity)
                 .map(this::toDTO);
     }
@@ -63,6 +66,7 @@ public class ReservaServiceImpl implements IReservaService {
             e.getDate(),
             e.getStartTime(),
             e.getEndTime(),
+            e.getStatus(),
             salonDto
         );
     }
@@ -76,7 +80,9 @@ public class ReservaServiceImpl implements IReservaService {
         e.setDate(new java.sql.Date(dto.getDate().getTime()));
         e.setStartTime(dto.getStartTime());
         e.setEndTime(dto.getEndTime());
+        e.setStatus(dto.getStatus());
         SalonEntity s = new SalonEntity();
+
         s.setId(dto.getObjSalon().getId());
         e.setObjSalon(s);
         return e;

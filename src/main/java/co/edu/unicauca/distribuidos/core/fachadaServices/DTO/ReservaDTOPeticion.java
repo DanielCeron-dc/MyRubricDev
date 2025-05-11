@@ -17,5 +17,6 @@ public class ReservaDTOPeticion {
     private Date date;
     private String startTime;
     private String endTime;
+    private String status;
     private SalonDTOPeticion objSalon;
 }

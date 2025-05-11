@@ -61,8 +61,8 @@ public class ReservaRepository {
     }
 
     public ReservaEntity save(ReservaEntity reserva) {
-        String sql = "INSERT INTO reservas(name, surname, location, people_amount, date, start_time, end_time, salon_id) "
-                + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO reservas(name, surname, location, people_amount, date, start_time, end_time, salon_id, status) "
+                + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         conexion.conectar();
         try (PreparedStatement ps = conexion.getConnection()
                 .prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -83,12 +83,12 @@ public class ReservaRepository {
     }
 
     public Optional<ReservaEntity> update(Integer id, ReservaEntity reserva) {
-        String sql = "UPDATE reservas SET name=?, surname=?, location=?, people_amount=?, date=?, start_time=?, end_time=?, salon_id=? "
+        String sql = "UPDATE reservas SET name=?, surname=?, location=?, people_amount=?, date=?, start_time=?, end_time=?, salon_id=?, status=? "
                 + "WHERE id=?";
         conexion.conectar();
         try (PreparedStatement ps = conexion.getConnection().prepareStatement(sql)) {
             fillStatement(ps, reserva);
-            ps.setInt(9, id);
+            ps.setInt(10, id);
             if (ps.executeUpdate() > 0) {
                 // return the freshly joined record
                 return findById(id);
@@ -124,6 +124,7 @@ public class ReservaRepository {
         r.setPeopleAmount(rs.getInt("people_amount"));
         r.setDate(rs.getDate("date"));
         r.setStartTime(rs.getString("start_time"));
+        r.setStatus(rs.getString("status"));
         r.setEndTime(rs.getString("end_time"));
 
         SalonEntity s = new SalonEntity();
@@ -145,5 +146,6 @@ public class ReservaRepository {
         ps.setString(6, r.getStartTime());
         ps.setString(7, r.getEndTime());
         ps.setInt(8, r.getObjSalon().getId());
+        ps.setString(9, r.getStatus());
     }
 }
