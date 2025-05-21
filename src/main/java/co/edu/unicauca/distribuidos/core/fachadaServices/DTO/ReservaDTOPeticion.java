@@ -14,7 +14,7 @@ public class ReservaDTOPeticion {
     private String surname;
     private String location;
     private Integer peopleAmount;
-    private Date date;
+    private String date;
     private String startTime;
     private String endTime;
     private String status;

@@ -122,7 +122,7 @@ public class ReservaRepository {
         r.setSurname(rs.getString("surname"));
         r.setLocation(rs.getString("location"));
         r.setPeopleAmount(rs.getInt("people_amount"));
-        r.setDate(rs.getDate("date"));
+        r.setDate(rs.getString("date"));
         r.setStartTime(rs.getString("start_time"));
         r.setStatus(rs.getString("status"));
         r.setEndTime(rs.getString("end_time"));
@@ -142,7 +142,7 @@ public class ReservaRepository {
         ps.setString(2, r.getSurname());
         ps.setString(3, r.getLocation());
         ps.setInt(4, r.getPeopleAmount());
-        ps.setDate(5, r.getDate());
+        ps.setString(5, r.getDate());
         ps.setString(6, r.getStartTime());
         ps.setString(7, r.getEndTime());
         ps.setInt(8, r.getObjSalon().getId());

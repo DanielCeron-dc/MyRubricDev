@@ -1,4 +1,4 @@
-// SalonEntity.java
+// ResultadoAprendizajeProgramaEntity.java
 package co.edu.unicauca.distribuidos.core.capaAccesoADatos.models;
 
 import lombok.AllArgsConstructor;
@@ -8,9 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SalonEntity {
+public class ResultadoAprendizajeProgramaEntity {
     private Integer id;
-    private String code;
-    private String name;
-    private String location;
+    private String descripcion;
+    private CompetenciaProgramaEntity competenciaPrograma;
 }

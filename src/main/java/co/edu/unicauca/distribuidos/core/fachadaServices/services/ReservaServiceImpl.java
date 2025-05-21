@@ -77,7 +77,7 @@ public class ReservaServiceImpl implements IReservaService {
         e.setSurname(dto.getSurname());
         e.setLocation(dto.getLocation());
         e.setPeopleAmount(dto.getPeopleAmount());
-        e.setDate(new java.sql.Date(dto.getDate().getTime()));
+        e.setDate(dto.getDate());
         e.setStartTime(dto.getStartTime());
         e.setEndTime(dto.getEndTime());
         e.setStatus(dto.getStatus());
