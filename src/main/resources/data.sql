@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 -- Test users with BCrypt-hashed passwords
 -- All users have the password 'password123'
 -- BCrypt hash for 'password123' is '$2a$10$EblZqNptyYvcLm/VwDCVAuBjzZOI7khzdyGPBr08PpIi0na624b8.'
@@ -37,3 +38,12 @@ INSERT INTO reservas (name, surname, location, people_amount, date, start_time, 
     ('Valentina','García',   'Cauca',   35, '2025-06-08', '09:30:00', '11:30:00', 3, 'pending'),
     ('Diego',    'Castro',   'Popayán', 28, '2025-06-09', '11:00:00', '13:00:00', 4, 'pending'),
     ('Laura',    'Vargas',   'Cali',    18, '2025-06-10', '16:00:00', '18:00:00', 5, 'pending');
+=======
+INSERT INTO Usuarios (
+    nombre, apellido, correo, tipo_identificacion, identificacion,
+    rol, tipo_docente, titulo_academico, contrasena_hash, activo
+) VALUES (
+    'Ana', 'Gómez', 'ana.gomez@unicauca.edu.co', 'CC', '1029384756',
+    'Coordinador', NULL, 'Magíster en Educación', 'coordinador123', TRUE
+);
+>>>>>>> Stashed changes
