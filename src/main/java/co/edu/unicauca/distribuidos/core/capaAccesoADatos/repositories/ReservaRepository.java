@@ -24,17 +24,22 @@ public class ReservaRepository {
                 "FROM reservas r " +
                 "LEFT JOIN salones s ON r.salon_id = s.id";
         Collection<ReservaEntity> reservas = new LinkedList<>();
-        conexion.conectar();
-        try (PreparedStatement ps = conexion.getConnection().prepareStatement(sql);
-                ResultSet rs = ps.executeQuery()) {
+        Connection conn = null;
+        try {
+            conn = conexion.conectar();
+            try (PreparedStatement ps = conn.prepareStatement(sql);
+                 ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 ReservaEntity r = mapRow(rs);
                 reservas.add(r);
             }
+            }
         } catch (SQLException e) {
             System.out.println("Error listing reservas: " + e.getMessage());
         } finally {
-            conexion.desconectar();
+            if (conn != null) {
+                conexion.desconectar(conn);
+            }
         }
         return reservas.isEmpty() ? Optional.empty() : Optional.of(reservas);
     }
@@ -44,18 +49,23 @@ public class ReservaRepository {
                 "FROM reservas r " +
                 "LEFT JOIN salones s ON r.salon_id = s.id " +
                 "WHERE r.id = ?";
-        conexion.conectar();
-        try (PreparedStatement ps = conexion.getConnection().prepareStatement(sql)) {
-            ps.setInt(1, id);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return Optional.of(mapRow(rs));
+        Connection conn = null;
+        try {
+            conn = conexion.conectar();
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setInt(1, id);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        return Optional.of(mapRow(rs));
+                    }
                 }
             }
         } catch (SQLException e) {
             System.out.println("Error finding reserva by id: " + e.getMessage());
         } finally {
-            conexion.desconectar();
+            if (conn != null) {
+                conexion.desconectar(conn);
+            }
         }
         return Optional.empty();
     }
@@ -63,8 +73,10 @@ public class ReservaRepository {
     public ReservaEntity save(ReservaEntity reserva) {
         String sql = "INSERT INTO reservas(name, surname, location, people_amount, date, start_time, end_time, salon_id, status) "
                 + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        conexion.conectar();
-        try (PreparedStatement ps = conexion.getConnection()
+        Connection conn = null;
+        try {
+            conn = conexion.conectar();
+            try (PreparedStatement ps = conn
                 .prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             fillStatement(ps, reserva);
             ps.executeUpdate();
@@ -73,10 +85,13 @@ public class ReservaRepository {
                     reserva.setId(keys.getInt(1));
                 }
             }
+            }
         } catch (SQLException e) {
             System.out.println("Error saving reserva: " + e.getMessage());
         } finally {
-            conexion.desconectar();
+            if (conn != null) {
+                conexion.desconectar(conn);
+            }
         }
         // now re-fetch the record with its joined Salon data
         return findById(reserva.getId()).orElse(reserva);
@@ -85,32 +100,42 @@ public class ReservaRepository {
     public Optional<ReservaEntity> update(Integer id, ReservaEntity reserva) {
         String sql = "UPDATE reservas SET name=?, surname=?, location=?, people_amount=?, date=?, start_time=?, end_time=?, salon_id=?, status=? "
                 + "WHERE id=?";
-        conexion.conectar();
-        try (PreparedStatement ps = conexion.getConnection().prepareStatement(sql)) {
-            fillStatement(ps, reserva);
-            ps.setInt(10, id);
-            if (ps.executeUpdate() > 0) {
-                // return the freshly joined record
-                return findById(id);
+        Connection conn = null;
+        try {
+            conn = conexion.conectar();
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                fillStatement(ps, reserva);
+                ps.setInt(10, id);
+                if (ps.executeUpdate() > 0) {
+                    // return the freshly joined record
+                    return findById(id);
+                }
             }
         } catch (SQLException e) {
             System.out.println("Error updating reserva: " + e.getMessage());
         } finally {
-            conexion.desconectar();
+            if (conn != null) {
+                conexion.desconectar(conn);
+            }
         }
         return Optional.empty();
     }
 
     public boolean delete(Integer id) {
         String sql = "DELETE FROM reservas WHERE id = ?";
-        conexion.conectar();
-        try (PreparedStatement ps = conexion.getConnection().prepareStatement(sql)) {
-            ps.setInt(1, id);
-            return ps.executeUpdate() > 0;
+        Connection conn = null;
+        try {
+            conn = conexion.conectar();
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setInt(1, id);
+                return ps.executeUpdate() > 0;
+            }
         } catch (SQLException e) {
             System.out.println("Error deleting reserva: " + e.getMessage());
         } finally {
-            conexion.desconectar();
+            if (conn != null) {
+                conexion.desconectar(conn);
+            }
         }
         return false;
     }

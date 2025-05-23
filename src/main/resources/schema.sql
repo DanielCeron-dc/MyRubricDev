@@ -1,6 +1,25 @@
 -- Drop existing tables if they exist
 DROP TABLE IF EXISTS reservas;
 DROP TABLE IF EXISTS salones;
+DROP TABLE IF EXISTS usuarios;
+
+-- Table: usuarios
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    rol VARCHAR(20) NOT NULL,
+    enabled BOOLEAN NOT NULL DEFAULT TRUE,
+    account_non_expired BOOLEAN NOT NULL DEFAULT TRUE,
+    account_non_locked BOOLEAN NOT NULL DEFAULT TRUE,
+    credentials_non_expired BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+-- Create index on username for faster lookups
+CREATE INDEX idx_usuarios_username ON usuarios(username);
+
+-- Create index on role for authorization queries
+CREATE INDEX idx_usuarios_rol ON usuarios(rol);
 
 -- Table: salones
 CREATE TABLE salones (

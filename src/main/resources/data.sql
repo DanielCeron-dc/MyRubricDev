@@ -1,3 +1,22 @@
+-- Test users with BCrypt-hashed passwords
+-- All users have the password 'password123'
+-- BCrypt hash for 'password123' is '$2a$10$EblZqNptyYvcLm/VwDCVAuBjzZOI7khzdyGPBr08PpIi0na624b8.'
+INSERT INTO usuarios (username, password_hash, rol, enabled, account_non_expired, account_non_locked, credentials_non_expired) VALUES
+    -- Admin user
+    ('admin', '$2a$10$EblZqNptyYvcLm/VwDCVAuBjzZOI7khzdyGPBr08PpIi0na624b8.', 'ADMIN', TRUE, TRUE, TRUE, TRUE),
+    
+    -- Coordinator user
+    ('coordinador', '$2a$10$EblZqNptyYvcLm/VwDCVAuBjzZOI7khzdyGPBr08PpIi0na624b8.', 'COORDINADOR', TRUE, TRUE, TRUE, TRUE),
+    
+    -- Teacher user
+    ('docente', '$2a$10$EblZqNptyYvcLm/VwDCVAuBjzZOI7khzdyGPBr08PpIi0na624b8.', 'DOCENTE', TRUE, TRUE, TRUE, TRUE),
+    
+    -- Regular user
+    ('user', '$2a$10$EblZqNptyYvcLm/VwDCVAuBjzZOI7khzdyGPBr08PpIi0na624b8.', 'USER', TRUE, TRUE, TRUE, TRUE),
+    
+    -- Evaluator user
+    ('evaluador', '$2a$10$EblZqNptyYvcLm/VwDCVAuBjzZOI7khzdyGPBr08PpIi0na624b8.', 'EVALUADOR_EXTERNO', TRUE, TRUE, TRUE, TRUE);
+
 -- Dummy data for salones
 INSERT INTO salones (id, code, name, location) VALUES
     (1, 'SAL001', 'Auditorio Central', 'Edificio A'),
