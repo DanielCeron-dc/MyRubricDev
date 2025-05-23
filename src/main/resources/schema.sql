@@ -1,10 +1,22 @@
-<<<<<<< Updated upstream
--- Drop existing tables if they exist
+
+-- ==== DROP old tables in reverse-dependency order ====
+
+DROP TABLE IF EXISTS EvaluacionCriterio;
+DROP TABLE IF EXISTS Evaluaciones;
+DROP TABLE IF EXISTS NivelesDesempeno;
+DROP TABLE IF EXISTS Criterios;
+DROP TABLE IF EXISTS Rubricas;
+DROP TABLE IF EXISTS ResultadosAsignatura;
+DROP TABLE IF EXISTS AsignaturaRAP;
+DROP TABLE IF EXISTS AsignaturaCompetencia;
+DROP TABLE IF EXISTS Asignaturas;
+DROP TABLE IF EXISTS ResultadosPrograma;
+DROP TABLE IF EXISTS CompetenciasPrograma;
 DROP TABLE IF EXISTS reservas;
 DROP TABLE IF EXISTS salones;
+DROP TABLE IF EXISTS usuarios_detalle;
 DROP TABLE IF EXISTS usuarios;
-
--- Table: usuarios
+-- SECURITY USERS table
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -15,19 +27,11 @@ CREATE TABLE usuarios (
     account_non_locked BOOLEAN NOT NULL DEFAULT TRUE,
     credentials_non_expired BOOLEAN NOT NULL DEFAULT TRUE
 );
-
--- Create index on username for faster lookups
 CREATE INDEX idx_usuarios_username ON usuarios(username);
-
--- Create index on role for authorization queries
 CREATE INDEX idx_usuarios_rol ON usuarios(rol);
-=======
-CREATE DATABASE IF NOT EXISTS SistemaRA;
-USE SistemaRA;
->>>>>>> Stashed changes
 
--- USUARIOS
-CREATE TABLE Usuarios (
+-- APPLICATION USERS table (renamed to avoid collision)
+CREATE TABLE usuarios_detalle (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     apellido VARCHAR(100) NOT NULL,
@@ -41,7 +45,7 @@ CREATE TABLE Usuarios (
     activo BOOLEAN DEFAULT TRUE
 );
 
--- COMPETENCIAS DEL PROGRAMA
+-- PROGRAM COMPETENCIES
 CREATE TABLE CompetenciasPrograma (
     id INT AUTO_INCREMENT PRIMARY KEY,
     codigo VARCHAR(20) UNIQUE NOT NULL,
@@ -49,7 +53,7 @@ CREATE TABLE CompetenciasPrograma (
     nivel ENUM('Basico', 'Intermedio', 'Avanzado') NOT NULL
 );
 
--- RESULTADOS DE APRENDIZAJE DEL PROGRAMA (RAP)
+-- PROGRAM LEARNING OUTCOMES (RAP)
 CREATE TABLE ResultadosPrograma (
     id INT AUTO_INCREMENT PRIMARY KEY,
     codigo VARCHAR(20) UNIQUE NOT NULL,
@@ -58,7 +62,7 @@ CREATE TABLE ResultadosPrograma (
     FOREIGN KEY (id_competencia) REFERENCES CompetenciasPrograma(id)
 );
 
--- ASIGNATURAS
+-- SUBJECTS
 CREATE TABLE Asignaturas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     codigo VARCHAR(20) UNIQUE NOT NULL,
@@ -69,7 +73,7 @@ CREATE TABLE Asignaturas (
     activa BOOLEAN DEFAULT TRUE
 );
 
--- VINCULACIÓN DE COMPETENCIAS Y RAP A ASIGNATURAS
+-- ASSIGN COMPETENCIES & RAPS TO SUBJECTS
 CREATE TABLE AsignaturaCompetencia (
     id_asignatura INT,
     id_competencia INT,
@@ -86,7 +90,7 @@ CREATE TABLE AsignaturaRAP (
     FOREIGN KEY (id_rap) REFERENCES ResultadosPrograma(id)
 );
 
--- RESULTADOS DE APRENDIZAJE POR ASIGNATURA
+-- LEARNING OUTCOMES PER SUBJECT
 CREATE TABLE ResultadosAsignatura (
     id INT AUTO_INCREMENT PRIMARY KEY,
     descripcion TEXT NOT NULL,
@@ -94,7 +98,7 @@ CREATE TABLE ResultadosAsignatura (
     FOREIGN KEY (id_asignatura) REFERENCES Asignaturas(id)
 );
 
--- RÚBRICAS
+-- RUBRICS
 CREATE TABLE Rubricas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
@@ -102,7 +106,7 @@ CREATE TABLE Rubricas (
     FOREIGN KEY (id_ra_asignatura) REFERENCES ResultadosAsignatura(id)
 );
 
--- CRITERIOS DE EVALUACIÓN POR RÚBRICA
+-- EVALUATION CRITERIA PER RUBRIC
 CREATE TABLE Criterios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_rubrica INT NOT NULL,
@@ -111,7 +115,7 @@ CREATE TABLE Criterios (
     FOREIGN KEY (id_rubrica) REFERENCES Rubricas(id)
 );
 
--- NIVELES DE DESEMPEÑO POR CRITERIO
+-- PERFORMANCE LEVELS PER CRITERION
 CREATE TABLE NivelesDesempeno (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_criterio INT NOT NULL,
@@ -122,7 +126,7 @@ CREATE TABLE NivelesDesempeno (
     FOREIGN KEY (id_criterio) REFERENCES Criterios(id)
 );
 
--- EVALUACIONES
+-- EVALUATIONS
 CREATE TABLE Evaluaciones (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_estudiante INT NOT NULL,
@@ -131,12 +135,12 @@ CREATE TABLE Evaluaciones (
     fecha DATE DEFAULT CURRENT_DATE,
     comentarios TEXT,
     finalizada BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (id_estudiante) REFERENCES Usuarios(id),
+    FOREIGN KEY (id_estudiante) REFERENCES usuarios_detalle(id),
     FOREIGN KEY (id_rubrica) REFERENCES Rubricas(id),
-    FOREIGN KEY (id_evaluador) REFERENCES Usuarios(id)
+    FOREIGN KEY (id_evaluador) REFERENCES usuarios_detalle(id)
 );
 
--- RESULTADO POR CRITERIO
+-- CRITERION RESULTS IN AN EVALUATION
 CREATE TABLE EvaluacionCriterio (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_evaluacion INT NOT NULL,
