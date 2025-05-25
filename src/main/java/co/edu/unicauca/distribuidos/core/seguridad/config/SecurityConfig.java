@@ -64,9 +64,9 @@ public class SecurityConfig {
             // Basic authorization configuration - PUBLIC ENDPOINTS FIRST
             .authorizeHttpRequests(auth -> auth
                 // AUTH ENDPOINTS - exact paths first for clarity
-                .requestMatchers("/auth/register").permitAll()
-                .requestMatchers("/auth/login").permitAll()
-                .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/api/auth/register").permitAll()
+                .requestMatchers("/api/auth/login").permitAll()
+                .requestMatchers("/api/auth/**").permitAll()
                 
                 // OTHER PUBLIC ENDPOINTS
                 .requestMatchers("/h2-console/**").permitAll()
@@ -74,9 +74,7 @@ public class SecurityConfig {
                 .requestMatchers("/v3/api-docs/**").permitAll()
                 
                 // PROTECTED ENDPOINTS
-                .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
-                .requestMatchers("/api/coordinador/**").hasAuthority("ROLE_COORDINADOR")
-                .requestMatchers("/api/docente/**").hasAnyAuthority("ROLE_DOCENTE", "ROLE_COORDINADOR")
+                .requestMatchers("/api/**").hasAuthority("ROLE_ADMIN")
                 
                 // Any other request needs authentication
                 .anyRequest().authenticated()
