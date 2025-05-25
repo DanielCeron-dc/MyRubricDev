@@ -36,12 +36,12 @@ public class AuthControllerIntegrationTest {
      * Test user registration with valid data
      */
     @Test
-    public void testRegisterUser() {
+    public void testRegisterCoordinador() {
         // Create registration request with unique username
         RegisterRequestDTO registerRequest = new RegisterRequestDTO();
         registerRequest.setUsername("testuser_" + UUID.randomUUID().toString().substring(0, 8));
         registerRequest.setPassword("password123");
-        registerRequest.setRol(Rol.USER);
+        registerRequest.setRol(Rol.COORDINADOR);
 
         // Send registration request
         ResponseEntity<String> response = restTemplate.postForEntity(
