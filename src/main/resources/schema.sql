@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS ResultadosPrograma;
 DROP TABLE IF EXISTS CompetenciasPrograma;
 DROP TABLE IF EXISTS reservas;
 DROP TABLE IF EXISTS salones;
-DROP TABLE IF EXISTS usuarios_detalle;
+DROP TABLE IF EXISTS Docente;
 DROP TABLE IF EXISTS usuarios;
 -- SECURITY USERS table
 CREATE TABLE usuarios (
@@ -31,7 +31,7 @@ CREATE INDEX idx_usuarios_username ON usuarios(username);
 CREATE INDEX idx_usuarios_rol ON usuarios(rol);
 
 -- APPLICATION USERS table (renamed to avoid collision)
-CREATE TABLE usuarios_detalle (
+CREATE TABLE Docente (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     apellido VARCHAR(100) NOT NULL,
@@ -135,9 +135,9 @@ CREATE TABLE Evaluaciones (
     fecha DATE DEFAULT CURRENT_DATE,
     comentarios TEXT,
     finalizada BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (id_estudiante) REFERENCES usuarios_detalle(id),
+    FOREIGN KEY (id_estudiante) REFERENCES Docente(id),
     FOREIGN KEY (id_rubrica) REFERENCES Rubricas(id),
-    FOREIGN KEY (id_evaluador) REFERENCES usuarios_detalle(id)
+    FOREIGN KEY (id_evaluador) REFERENCES Docente(id)
 );
 
 -- CRITERION RESULTS IN AN EVALUATION
