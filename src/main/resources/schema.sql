@@ -35,14 +35,14 @@ CREATE TABLE Docente (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     apellido VARCHAR(100) NOT NULL,
-    correo VARCHAR(150) UNIQUE NOT NULL,
+    correo_academico VARCHAR(150) UNIQUE NOT NULL,
     tipo_identificacion VARCHAR(20),
     identificacion VARCHAR(50) UNIQUE NOT NULL,
-    rol ENUM('Coordinador', 'Docente', 'Evaluador') NOT NULL,
     tipo_docente ENUM('Catedra', 'Tiempo Completo', 'Planta') DEFAULT NULL,
     titulo_academico VARCHAR(100),
-    contrasena_hash VARCHAR(255) NOT NULL,
-    activo BOOLEAN DEFAULT TRUE
+    activo BOOLEAN DEFAULT TRUE,
+    usuario_id INT UNIQUE,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 );
 
 -- PROGRAM COMPETENCIES

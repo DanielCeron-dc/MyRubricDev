@@ -1,8 +1,8 @@
-package co.edu.unicauca.distribuidos.core.seguridad.accesoADatos;
+package co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.repositorios;
 
 import co.edu.unicauca.distribuidos.core.config.ConexionBD;
-import co.edu.unicauca.distribuidos.core.seguridad.accesoADatos.modelos.Rol;
-import co.edu.unicauca.distribuidos.core.seguridad.accesoADatos.modelos.UsuarioEntity;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.Rol;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.UsuarioEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;

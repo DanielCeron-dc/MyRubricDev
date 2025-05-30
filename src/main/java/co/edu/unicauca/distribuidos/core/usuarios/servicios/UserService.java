@@ -1,7 +1,7 @@
-package co.edu.unicauca.distribuidos.core.seguridad.servicios;
+package co.edu.unicauca.distribuidos.core.usuarios.servicios;
 
-import co.edu.unicauca.distribuidos.core.seguridad.accesoADatos.modelos.UsuarioEntity;
-import co.edu.unicauca.distribuidos.core.seguridad.servicios.dto.RegisterRequestDTO;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.UsuarioEntity;
+import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.RegisterRequestDTO;
 
 /**
  * Service interface for user-related operations

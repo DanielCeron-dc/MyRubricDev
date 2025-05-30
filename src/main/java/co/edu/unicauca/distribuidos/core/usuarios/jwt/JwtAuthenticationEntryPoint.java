@@ -1,4 +1,4 @@
-package co.edu.unicauca.distribuidos.core.seguridad.jwt;
+package co.edu.unicauca.distribuidos.core.usuarios.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;

@@ -1,4 +1,4 @@
-package co.edu.unicauca.distribuidos.core.seguridad.servicios.dto;
+package co.edu.unicauca.distribuidos.core.usuarios.servicios.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

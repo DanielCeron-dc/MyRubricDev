@@ -1,4 +1,4 @@
-package co.edu.unicauca.distribuidos.core.seguridad.jwt;
+package co.edu.unicauca.distribuidos.core.usuarios.jwt;
 
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;

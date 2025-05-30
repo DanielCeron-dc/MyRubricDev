@@ -1,7 +1,7 @@
 // AsignacionCompDocenteEntity.java
 package co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.modelos;
 
-import co.edu.unicauca.distribuidos.core.seguridad.accesoADatos.modelos.UsuarioEntity;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.UsuarioEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,10 +1,10 @@
-package co.edu.unicauca.distribuidos.core.seguridad.servicios;
+package co.edu.unicauca.distribuidos.core.usuarios.servicios;
 
 
 
-import co.edu.unicauca.distribuidos.core.seguridad.servicios.dto.AuthResponseDTO;
-import co.edu.unicauca.distribuidos.core.seguridad.servicios.dto.RegisterRequestDTO;
-import co.edu.unicauca.distribuidos.core.seguridad.servicios.dto.RegisterResponseDTO;
+import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.AuthResponseDTO;
+import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.RegisterRequestDTO;
+import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.RegisterResponseDTO;
 
 
 

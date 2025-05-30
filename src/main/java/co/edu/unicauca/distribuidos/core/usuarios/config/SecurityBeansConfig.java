@@ -1,4 +1,4 @@
-package co.edu.unicauca.distribuidos.core.seguridad.config;
+package co.edu.unicauca.distribuidos.core.usuarios.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

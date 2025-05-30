@@ -20,7 +20,6 @@ import java.util.Properties;
  * Database configuration for the application
  */
 @Configuration
-@EnableJpaRepositories(basePackages = "co.edu.unicauca.distribuidos.core.capaAccesoADatos.repositories")
 @EnableTransactionManagement
 public class DatabaseConfig {
 

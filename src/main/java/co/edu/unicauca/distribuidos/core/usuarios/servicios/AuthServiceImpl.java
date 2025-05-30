@@ -1,4 +1,4 @@
-package co.edu.unicauca.distribuidos.core.seguridad.servicios;
+package co.edu.unicauca.distribuidos.core.usuarios.servicios;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 
 import co.edu.unicauca.distribuidos.core.errores.BusinessException;
 import co.edu.unicauca.distribuidos.core.errores.modelos.ErrorCode;
-import co.edu.unicauca.distribuidos.core.seguridad.accesoADatos.modelos.UsuarioEntity;
-import co.edu.unicauca.distribuidos.core.seguridad.jwt.JwtTokenProvider;
-import co.edu.unicauca.distribuidos.core.seguridad.servicios.dto.AuthResponseDTO;
-import co.edu.unicauca.distribuidos.core.seguridad.servicios.dto.RegisterRequestDTO;
-import co.edu.unicauca.distribuidos.core.seguridad.servicios.dto.RegisterResponseDTO;
-import co.edu.unicauca.distribuidos.core.seguridad.servicios.mapper.UsuarioMapper;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.UsuarioEntity;
+import co.edu.unicauca.distribuidos.core.usuarios.jwt.JwtTokenProvider;
+import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.AuthResponseDTO;
+import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.RegisterRequestDTO;
+import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.RegisterResponseDTO;
+import co.edu.unicauca.distribuidos.core.usuarios.servicios.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

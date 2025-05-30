@@ -1,4 +1,4 @@
-package co.edu.unicauca.distribuidos.core.seguridad.config;
+package co.edu.unicauca.distribuidos.core.usuarios.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,8 +19,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import co.edu.unicauca.distribuidos.core.seguridad.jwt.JwtAuthenticationEntryPoint;
-import co.edu.unicauca.distribuidos.core.seguridad.jwt.JwtAuthenticationFilter;
+import co.edu.unicauca.distribuidos.core.usuarios.jwt.JwtAuthenticationEntryPoint;
+import co.edu.unicauca.distribuidos.core.usuarios.jwt.JwtAuthenticationFilter;
 
 import java.util.Arrays;
 import java.util.Collections;

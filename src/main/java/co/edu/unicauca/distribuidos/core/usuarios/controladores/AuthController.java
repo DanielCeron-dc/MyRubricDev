@@ -1,10 +1,8 @@
-package co.edu.unicauca.distribuidos.core.seguridad.controladores;
+package co.edu.unicauca.distribuidos.core.usuarios.controladores;
 
-import co.edu.unicauca.distribuidos.core.seguridad.servicios.AuthService;
-
-import co.edu.unicauca.distribuidos.core.seguridad.servicios.dto.AuthRequestDTO;
-
-import co.edu.unicauca.distribuidos.core.seguridad.servicios.dto.RegisterRequestDTO;
+import co.edu.unicauca.distribuidos.core.usuarios.servicios.AuthService;
+import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.AuthRequestDTO;
+import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.RegisterRequestDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
