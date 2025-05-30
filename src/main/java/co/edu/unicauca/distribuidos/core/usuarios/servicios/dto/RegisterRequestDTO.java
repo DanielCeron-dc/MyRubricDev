@@ -1,6 +1,6 @@
 package co.edu.unicauca.distribuidos.core.usuarios.servicios.dto;
 
-import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.Rol;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos.Rol;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;

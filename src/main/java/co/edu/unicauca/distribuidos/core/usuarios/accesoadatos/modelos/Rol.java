@@ -1,5 +1,5 @@
 // Rol.java
-package co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos;
+package co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos;
 
 public enum Rol {
     COORDINADOR,

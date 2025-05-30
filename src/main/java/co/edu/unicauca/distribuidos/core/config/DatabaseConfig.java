@@ -1,7 +1,9 @@
 package co.edu.unicauca.distribuidos.core.config;
 
 
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -20,6 +22,12 @@ import java.util.Properties;
  * Database configuration for the application
  */
 @Configuration
+@EntityScan(basePackages = {
+	"co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos"
+})
+@EnableJpaRepositories(basePackages = {
+	"co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.repositorios"
+})
 @EnableTransactionManagement
 public class DatabaseConfig {
 
@@ -50,14 +58,15 @@ public class DatabaseConfig {
         
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("co.edu.unicauca.distribuidos.core.capaAccesoADatos.models");
+        factory.setPackagesToScan("co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos");
         factory.setDataSource(dataSource());
         
         Properties jpaProperties = new Properties();
         jpaProperties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
         jpaProperties.put("hibernate.show_sql", "true");
         jpaProperties.put("hibernate.format_sql", "true");
-        jpaProperties.put("hibernate.hbm2ddl.auto", "validate");
+        jpaProperties.put("hibernate.hbm2ddl.auto", "update");
+        jpaProperties.put("hibernate.globally_quoted_identifiers", "true");
         factory.setJpaProperties(jpaProperties);
         
         return factory;

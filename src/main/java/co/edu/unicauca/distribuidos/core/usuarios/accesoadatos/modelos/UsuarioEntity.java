@@ -1,4 +1,4 @@
-package co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos;
+package co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +17,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -34,17 +35,17 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "usuarios")
+@Table(name = "USUARIOS")
 public class UsuarioEntity implements UserDetails {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @Column(name = "username", nullable = false, unique = true)
+    @Column(name = "USERNAME", nullable = false, unique = true)
     private String username;
     
-    @Column(name = "password_hash", nullable = false)
+    @Column(name = "PASSWORD_HASH", nullable = false)
     private String passwordHash;
     
     @Enumerated(EnumType.STRING)
@@ -59,20 +60,23 @@ public class UsuarioEntity implements UserDetails {
     @Transient
     private List<EvaluacionEntity> evaluaciones;
     
+    @OneToOne(mappedBy = "usuario")
+    private DocenteEntity docente;
+    
     @Builder.Default
-    @Column(name = "enabled", nullable = false)
+    @Column(name = "ENABLED", nullable = false)
     private boolean enabled = true;
     
     @Builder.Default
-    @Column(name = "account_non_expired", nullable = false)
+    @Column(name = "ACCOUNT_NON_EXPIRED", nullable = false)
     private boolean accountNonExpired = true;
     
     @Builder.Default
-    @Column(name = "account_non_locked", nullable = false)
+    @Column(name = "ACCOUNT_NON_LOCKED", nullable = false)
     private boolean accountNonLocked = true;
     
     @Builder.Default
-    @Column(name = "credentials_non_expired", nullable = false)
+    @Column(name = "CREDENTIALS_NON_EXPIRED", nullable = false)
     private boolean credentialsNonExpired = true;
     
     /**

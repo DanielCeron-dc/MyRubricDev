@@ -1,4 +1,4 @@
-package co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.repositorios;
+package co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.repositorios;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -11,7 +11,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import co.edu.unicauca.distribuidos.core.config.ConexionBD;
-import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.DocenteEntity;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos.DocenteEntity;
 import lombok.RequiredArgsConstructor;
 
 
@@ -39,11 +39,13 @@ public class DocenteRepository {
                 docente.setId(res.getInt("id"));
                 docente.setNombre(res.getString("nombre"));
                 docente.setApellido(res.getString("apellido"));
+                /*
                 docente.setCorreo(res.getString("correo"));
                 //docente.setTelefono(res.getString("telefono"));
                 docente.setFechaNacimiento(res.getDate("fecha_nacimiento"));
                 docente.setFechaIngreso(res.getDate("fecha_ingreso"));
                 docente.setFechaRetiro(res.getDate("fecha_retiro"));
+                */
                 //docente.add(docente);
             }
             sentencia.close();

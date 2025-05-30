@@ -23,20 +23,37 @@ import co.edu.unicauca.distribuidos.core.usuarios.jwt.JwtAuthenticationEntryPoin
 import co.edu.unicauca.distribuidos.core.usuarios.jwt.JwtAuthenticationFilter;
 
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.List;
 
 /**
- * Security configuration with explicit separation of public and secured
- * endpoints
+ * Decentralized Security Configuration
+ * Most authorization is handled at controller/method level using annotations
  */
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity(
+    prePostEnabled = true,    // Enable @PreAuthorize, @PostAuthorize
+    securedEnabled = true,    // Enable @Secured
+    jsr250Enabled = true      // Enable @RolesAllowed
+)
 public class SecurityConfig {
 
     private final JwtAuthenticationEntryPoint unauthorizedHandler;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final DaoAuthenticationProvider authenticationProvider;
+
+    // Only truly public endpoints that never need protection
+    private static final String[] ALWAYS_PUBLIC_ENDPOINTS = {
+        "/h2-console/**",
+        "/swagger-ui/**",
+        "/swagger-ui.html",
+        "/v3/api-docs/**",
+        "/swagger-resources/**",
+        "/webjars/**",
+        "/actuator/health",
+        "/actuator/info",
+        "/error"
+    };
 
     public SecurityConfig(
             @Lazy JwtAuthenticationEntryPoint unauthorizedHandler,
@@ -50,75 +67,52 @@ public class SecurityConfig {
     @Bean
     public RoleHierarchy roleHierarchy() {
         RoleHierarchyImpl hierarchy = new RoleHierarchyImpl();
-        hierarchy.setHierarchy("ROLE_COORDINADOR > ROLE_DOCENTE");
+        hierarchy.setHierarchy("ROLE_COORDINADOR > ROLE_DOCENTE > ROLE_USER");
         return hierarchy;
     }
 
     /**
-     * Basic security filter chain configuration
-     * Simple, direct approach to security configuration
-     *
-     * @param http the HttpSecurity to configure
-     * @return the configured SecurityFilterChain
-     * @throws Exception if an error occurs during configuration
+     * Minimal security configuration - most authorization handled by method annotations
      */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // Disable CSRF for all endpoints
-                .csrf(AbstractHttpConfigurer::disable)
+            .headers(headers -> headers.frameOptions().disable())
+            .csrf(AbstractHttpConfigurer::disable)
+            .cors(Customizer.withDefaults())
+            
+            .authorizeHttpRequests(auth -> auth
+                // Only configure truly public endpoints here
+                .requestMatchers(ALWAYS_PUBLIC_ENDPOINTS).permitAll()
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // CORS preflight
+                .requestMatchers("api/auth/**").permitAll()
+                
+                // Everything else requires authentication - authorization handled by method annotations
+                .anyRequest().authenticated()
+            )
 
-                // Configure CORS - must be early in the chain
-                .cors(Customizer.withDefaults())
+            .sessionManagement(session -> 
+                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-                // Basic authorization configuration - PUBLIC ENDPOINTS FIRST
-                .authorizeHttpRequests(auth -> auth
-                        // AUTH ENDPOINTS - exact paths first for clarity
-                        .requestMatchers("/api/auth/register").permitAll()
-                        .requestMatchers("/api/auth/login").permitAll()
-                        .requestMatchers("/api/auth/**").permitAll()
+            .exceptionHandling(exception -> exception
+                .authenticationEntryPoint(unauthorizedHandler))
 
-                        // OTHER PUBLIC ENDPOINTS
-                        .requestMatchers("/h2-console/**").permitAll()
-                        .requestMatchers("/swagger-ui/**").permitAll()
-                        .requestMatchers("/v3/api-docs/**").permitAll()
-
-                        // PROTECTED ENDPOINTS
-
-                        .requestMatchers("/api/asignatura/**").hasAnyAuthority("ROLE_DOCENTE")
-                        .requestMatchers("/api/**").hasAuthority("ROLE_COORDINADOR")
-                        // Any other request needs authentication
-                        .anyRequest().authenticated())
-
-                // Configure session management - STATELESS for JWT
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-
-                // Configure exception handling
-                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
-
-                // Configure authentication provider
-                .authenticationProvider(authenticationProvider)
-
-                // Add JWT filter - after authorization rules
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-
-                // Allow frames for H2 console
-                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()));
+            .authenticationProvider(authenticationProvider)
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
-    /**
-     * Configure CORS for the application
-     */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Collections.singletonList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Collections.singletonList("*"));
-        configuration.setExposedHeaders(Collections.singletonList("Authorization"));
-
+        configuration.setAllowedOriginPatterns(List.of("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setExposedHeaders(List.of("Authorization"));
+        configuration.setAllowCredentials(true);
+        configuration.setMaxAge(3600L);
+        
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

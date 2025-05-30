@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class DocenteDTO {
-    
+public class CrearDocenteDTO {
+
     private Integer id;    
     
     private String nombre;    
@@ -25,5 +25,5 @@ public class DocenteDTO {
     private String tituloAcademico;    
     
     private Boolean activo;
-
+    
 }

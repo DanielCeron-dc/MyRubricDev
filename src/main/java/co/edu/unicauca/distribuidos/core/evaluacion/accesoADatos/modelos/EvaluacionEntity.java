@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 import co.edu.unicauca.distribuidos.core.rubrica.accesoADatos.modelos.RubricaEntity;
-import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.UsuarioEntity;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos.UsuarioEntity;
 
 @Data
 @AllArgsConstructor

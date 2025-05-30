@@ -1,8 +1,8 @@
-package co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.repositorios;
+package co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.repositorios;
 
 import org.springframework.stereotype.Repository;
 
-import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.UsuarioEntity;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos.UsuarioEntity;
 
 import java.util.Optional;
 

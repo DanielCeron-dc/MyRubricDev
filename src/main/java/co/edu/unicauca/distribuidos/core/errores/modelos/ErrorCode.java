@@ -41,8 +41,11 @@ public enum ErrorCode {
     // Registration specific errors
     REGISTRATION_USERNAME_EXISTS("REG_001", "Username already exists"),
     REGISTRATION_EMAIL_EXISTS("REG_002", "Email already exists"),
-    REGISTRATION_INVALID_DATA("REG_003", "Invalid registration data"),
-    REGISTRATION_FAILED("REG_004", "User registration failed");
+    REGISTRATION_IDENTIFICATION_EXISTS("REG_003", "Identification already exists"),
+    REGISTRATION_INVALID_DATA("REG_004", "Invalid registration data"),
+    REGISTRATION_FAILED("REG_005", "User registration failed");
+    
+    
 
     private final String code;
     private final String message;

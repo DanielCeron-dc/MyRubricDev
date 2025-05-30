@@ -38,7 +38,7 @@ CREATE TABLE Docente (
     correo_academico VARCHAR(150) UNIQUE NOT NULL,
     tipo_identificacion VARCHAR(20),
     identificacion VARCHAR(50) UNIQUE NOT NULL,
-    tipo_docente ENUM('Catedra', 'Tiempo Completo', 'Planta') DEFAULT NULL,
+    tipo_docente ENUM('CATEDRA', 'TIEMPO_COMPLETO', 'PLANTA') DEFAULT NULL, 
     titulo_academico VARCHAR(100),
     activo BOOLEAN DEFAULT TRUE,
     usuario_id INT UNIQUE,

@@ -1,6 +1,6 @@
 package co.edu.unicauca.distribuidos.core.security.controllers;
 
-import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.Rol;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos.Rol;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.AuthRequestDTO;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.AuthResponseDTO;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.RegisterRequestDTO;

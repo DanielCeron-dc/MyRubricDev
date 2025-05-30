@@ -3,6 +3,7 @@ package co.edu.unicauca.distribuidos.core.usuarios.controladores;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.AuthService;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.AuthRequestDTO;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.RegisterRequestDTO;
+import jakarta.annotation.security.PermitAll;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

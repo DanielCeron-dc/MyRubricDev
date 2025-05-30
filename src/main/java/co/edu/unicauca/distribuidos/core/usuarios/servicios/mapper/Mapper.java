@@ -10,4 +10,9 @@ public class Mapper {
     public UsuarioMapper getUsuarioMapper() {
         return new UsuarioMapper();
     }
+
+    @Bean
+    public DocenteMapper getDocenteMapper() {
+        return new DocenteMapper();
+    }
 }

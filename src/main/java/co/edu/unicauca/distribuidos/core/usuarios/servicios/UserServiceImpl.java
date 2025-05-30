@@ -1,7 +1,7 @@
 package co.edu.unicauca.distribuidos.core.usuarios.servicios;
 
-import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.UsuarioEntity;
-import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.repositorios.UserRepository;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos.UsuarioEntity;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.repositorios.UserRepository;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.RegisterRequestDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
@@ -52,6 +52,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
      */
     @Override
     public UsuarioEntity registerUser(RegisterRequestDTO registerRequest) {
+        log.info("Registering new user with username: " + registerRequest.getUsername());
         // Create new user entity
         UsuarioEntity newUser = UsuarioEntity.builder()
                 .username(registerRequest.getUsername())

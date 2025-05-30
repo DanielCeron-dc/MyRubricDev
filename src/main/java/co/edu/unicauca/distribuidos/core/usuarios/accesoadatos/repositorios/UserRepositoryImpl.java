@@ -1,8 +1,8 @@
-package co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.repositorios;
+package co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.repositorios;
 
 import co.edu.unicauca.distribuidos.core.config.ConexionBD;
-import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.Rol;
-import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.UsuarioEntity;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos.Rol;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos.UsuarioEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -67,6 +67,7 @@ public class UserRepositoryImpl implements UserRepository {
      */
     @Override
     public UsuarioEntity save(UsuarioEntity usuario) {
+        log.info("Saving user with username: " + usuario.getUsername());
         if (usuario.getId() == null) {
             return insert(usuario);
         } else {
@@ -103,6 +104,7 @@ public class UserRepositoryImpl implements UserRepository {
                     }
                 }
             }
+            
             
             return usuario;
         } catch (SQLException e) {
