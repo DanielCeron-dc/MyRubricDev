@@ -50,13 +50,11 @@ public class DocenteServiceImpl implements DocenteService {
         System.out.println("Creando detalles docente desde el servicio...");
         DocenteEntity docenteEntity = docenteMapper.toEntity(docente);
         docenteEntity.setUsuario(usuario);
-
-
         DocenteEntity docentePersistencia = null;
-        // manage JPA exceptions
         try {
             docentePersistencia = docenteRepository.save(docenteEntity);
         } catch (Exception e) {
+            // Tira error si no se puede guardar el docente, que es porque ya existe
             throw new BusinessException(ErrorCode.REGISTRATION_IDENTIFICATION_EXISTS, "Ya existe un docente con esa identificación");
         }
         return docenteMapper.toDto(docentePersistencia);
