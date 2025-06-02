@@ -52,7 +52,9 @@ public class SecurityConfig {
         "/webjars/**",
         "/actuator/health",
         "/actuator/info",
-        "/error"
+        "/error",
+        "/auth/**",
+        "/api/auth/**"
     };
 
     public SecurityConfig(
@@ -85,7 +87,6 @@ public class SecurityConfig {
                 // Only configure truly public endpoints here
                 .requestMatchers(ALWAYS_PUBLIC_ENDPOINTS).permitAll()
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // CORS preflight
-                .requestMatchers("api/auth/**").permitAll()
                 
                 // Everything else requires authentication - authorization handled by method annotations
                 .anyRequest().authenticated()
