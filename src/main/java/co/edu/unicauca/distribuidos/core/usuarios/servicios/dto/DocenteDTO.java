@@ -25,5 +25,4 @@ public class DocenteDTO {
     private String tituloAcademico;    
     
     private Boolean activo;
-
 }
