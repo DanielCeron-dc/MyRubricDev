@@ -26,7 +26,7 @@ import java.util.List;
  * Controlador para gestionar las operaciones relacionadas con los criterios de evaluación
  */
 @RestController
-@RequestMapping("/rubrica")
+@RequestMapping("/api/rubrica")
 @RequiredArgsConstructor
 @Slf4j
 @CrossOrigin(origins = "*")
