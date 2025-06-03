@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping({"/api/auth", "/auth"})
 @RequiredArgsConstructor
 @Slf4j
 @CrossOrigin(origins = "*")
@@ -35,7 +35,7 @@ public class AuthController {
      * @return ResponseEntity with AuthResponseDTO containing JWT token
      */
     @PostMapping("/login")
-    @PreAuthorize("permitAll()")
+    @PermitAll
     public ResponseEntity<Object> login(@Valid @RequestBody AuthRequestDTO loginRequest) {
         return ResponseEntity.ok(
                 authService.login(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -49,7 +49,7 @@ public class AuthController {
      * @return ResponseEntity with status
      */
     @PostMapping("/register")
-    @PreAuthorize("permitAll()")
+    @PermitAll
     public ResponseEntity<Object> register(@Valid @RequestBody RegisterRequestDTO registerRequest) {
         return ResponseEntity.ok(authService.register(registerRequest));
     }

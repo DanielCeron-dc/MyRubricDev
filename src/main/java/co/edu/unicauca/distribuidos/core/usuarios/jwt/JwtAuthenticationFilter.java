@@ -41,6 +41,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         "/favicon.ico"
     };
 
+    // Auth endpoints that should never require authentication
+    private static final String[] AUTH_PUBLIC_PATTERNS = {
+        "/api/auth/**",
+        "/auth/**",
+        "/api/api/auth/**"
+    };
+
     public JwtAuthenticationFilter(JwtTokenProvider tokenProvider) {
         this.tokenProvider = tokenProvider;
     }
@@ -58,9 +65,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return true;
         }
 
-        if (path.startsWith("/api/auth")) {
-            log.info("AUTH PATH: Skipping JWT filter for path: {}", path);
-            return true;
+        // Skip all auth endpoints using pattern matching
+        for (String pattern : AUTH_PUBLIC_PATTERNS) {
+            if (pathMatcher.match(pattern, path)) {
+                log.info("AUTH PATH: Skipping JWT filter for path: {}", path);
+                return true;
+            }
         }
         
         // Only skip infrastructure endpoints

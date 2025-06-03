@@ -53,8 +53,9 @@ public class SecurityConfig {
         "/actuator/health",
         "/actuator/info",
         "/error",
+        "/api/auth/**",
         "/auth/**",
-        "/api/auth/**"
+        "/api/api/auth/**"
     };
 
     public SecurityConfig(
@@ -79,13 +80,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .headers(headers -> headers.frameOptions().disable())
+            .headers(headers -> headers.disable())
             .csrf(AbstractHttpConfigurer::disable)
             .cors(Customizer.withDefaults())
             
             .authorizeHttpRequests(auth -> auth
                 // Only configure truly public endpoints here
                 .requestMatchers(ALWAYS_PUBLIC_ENDPOINTS).permitAll()
+                // Explicitly allow auth endpoints with different path patterns
+                .requestMatchers("/api/auth/**", "/auth/**", "/api/api/auth/**").permitAll()
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // CORS preflight
                 
                 // Everything else requires authentication - authorization handled by method annotations

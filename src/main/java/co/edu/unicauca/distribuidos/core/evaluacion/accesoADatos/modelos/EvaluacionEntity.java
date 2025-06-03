@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-import co.edu.unicauca.distribuidos.core.rubrica.accesoADatos.modelos.RubricaEntity;
+import co.edu.unicauca.distribuidos.core.rubrica.dominio.Rubrica;
 import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos.UsuarioEntity;
 
 @Data
@@ -17,7 +17,7 @@ public class EvaluacionEntity {
     private Integer id;
     private Date fecha;
     private String comentarios;
-    private RubricaEntity rubrica;
+    private Rubrica rubrica;
     private EstudianteEntity estudiante;
     private UsuarioEntity evaluador;
 }

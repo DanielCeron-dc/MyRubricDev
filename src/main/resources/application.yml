@@ -1,0 +1,125 @@
+# Application configuration in YAML format
+# This will override application.properties due to higher precedence
+
+# Server configuration
+server:
+  port: 8082
+  servlet:
+    context-path: /api
+  compression:
+    enabled: true
+  error:
+    include-message: always
+    include-binding-errors: always
+
+# Spring configuration
+spring:
+  application:
+    name: lab-software-engineering-backend
+  
+  # Allow circular references as a fallback solution
+  main:
+    allow-circular-references: true
+  
+  # H2 Database configuration
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: password
+    driver-class-name: org.h2.Driver
+  
+  # H2 Console configuration
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        trace: false
+        web-allow-others: false
+  
+  # JPA and Hibernate configuration
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        use_sql_comments: true
+        generate_statistics: true
+        jdbc:
+          batch_size: 50
+          batch_versioned_data: true
+        order_inserts: true
+        order_updates: true
+        globally_quoted_identifiers: true
+        # Connection pool settings via HikariCP
+        connection:
+          provider_class: org.hibernate.hikaricp.internal.HikariCPConnectionProvider
+        hikari:
+          minimumIdle: 5
+          maximumPoolSize: 20
+          idleTimeout: 30000
+    show-sql: true
+  
+  # SQL initialization configuration
+  sql:
+    init:
+      mode: always
+      platform: h2
+
+# Logging configuration
+logging:
+  level:
+    root: INFO
+    org:
+      springframework:
+        web: INFO
+        security: TRACE
+        jdbc:
+          datasource:
+            init:
+              ScriptUtils: DEBUG
+        boot:
+          autoconfigure:
+            jdbc:
+              DataSourceInitializer: DEBUG
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+    co:
+      edu:
+        unicauca:
+          distribuidos:
+            core:
+              security: DEBUG
+              security.jwt: TRACE
+              rubrica: DEBUG
+
+# JWT Configuration
+jwt:
+  secret: ${JWT_SECRET:8f66c3c746e22ec22d1abe8ffefe8df6a7a25d09a4124f27c1328f885d4e1f3d}
+  expiration: 3600000
+
+# CORS Configuration
+cors:
+  allowed-origins: "*"
+  allowed-methods: GET,POST,PUT,DELETE,OPTIONS
+  allowed-headers: "*"
+  exposed-headers: Authorization
+  max-age: 3600
+
+# Actuator endpoints for monitoring
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when_authorized
+
