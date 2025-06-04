@@ -1,6 +1,6 @@
 package co.edu.unicauca.distribuidos.core.modelos;
 
-import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos.DocenteEntity;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.DocenteEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

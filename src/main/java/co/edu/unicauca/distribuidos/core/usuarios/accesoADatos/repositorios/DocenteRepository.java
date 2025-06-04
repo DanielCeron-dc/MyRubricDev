@@ -1,6 +1,5 @@
-package co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.repositorios;
+package co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.repositorios;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +10,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import co.edu.unicauca.distribuidos.core.config.ConexionBD;
-import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos.DocenteEntity;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.DocenteEntity;
 import lombok.RequiredArgsConstructor;
 
 

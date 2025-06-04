@@ -52,9 +52,10 @@ public class DatabaseConfig {
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
         factory.setPackagesToScan(
-            "co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos",
+            "co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos",
             "co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.modelos",
-            "co.edu.unicauca.distribuidos.core.rubrica.dominio"
+                "co.edu.unicauca.distribuidos.core.programa.accesoADatos.modelos",
+                "co.edu.unicauca.distribuidos.core.rubrica.dominio"
         );
         factory.setDataSource(dataSource());
         

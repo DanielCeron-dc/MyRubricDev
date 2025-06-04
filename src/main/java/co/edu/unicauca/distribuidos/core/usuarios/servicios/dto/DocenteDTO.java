@@ -1,6 +1,6 @@
 package co.edu.unicauca.distribuidos.core.usuarios.servicios.dto;
 
-import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos.TipoDocente;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.TipoDocente;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

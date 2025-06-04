@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import co.edu.unicauca.distribuidos.core.errores.BusinessException;
 import co.edu.unicauca.distribuidos.core.errores.modelos.ErrorCode;
-import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos.UsuarioEntity;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.UsuarioEntity;
 import co.edu.unicauca.distribuidos.core.usuarios.jwt.JwtTokenProvider;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.AuthResponseDTO;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.RegisterRequestDTO;

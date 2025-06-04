@@ -2,7 +2,6 @@ package co.edu.unicauca.distribuidos.core.usuarios.servicios;
 
 import java.util.List;
 
-import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos.DocenteEntity;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.CrearDocenteDTO;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.DocenteDTO;
 

@@ -1,7 +1,7 @@
 package co.edu.unicauca.distribuidos.core.usuarios.servicios;
 
-import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos.UsuarioEntity;
-import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.repositorios.UserRepository;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.UsuarioEntity;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.repositorios.UserRepository;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.RegisterRequestDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;

@@ -1,6 +1,6 @@
 package co.edu.unicauca.distribuidos.core.security.controllers;
 
-import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos.Rol;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.Rol;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.AuthRequestDTO;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.AuthResponseDTO;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.RegisterRequestDTO;
@@ -11,10 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
-import org.springframework.test.context.jdbc.Sql;
 
-import java.util.Collections;
-import java.util.Map;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
