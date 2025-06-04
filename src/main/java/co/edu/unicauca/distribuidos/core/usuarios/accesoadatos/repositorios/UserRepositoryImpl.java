@@ -169,5 +169,40 @@ public class UserRepositoryImpl implements UserRepository {
         
         return exists;
     }
+
+    /**
+     * Find a user by their ID
+     *
+     * @param id the ID of the user to find
+     * @return an Optional containing the user if found, or empty if not found
+     */
+    @Override
+    public Optional<UsuarioEntity> findById(Long id) {
+        String sql = "SELECT id, username, password_hash, rol FROM usuarios WHERE id = ?";
+        
+        try (Connection connection = conexionBD.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            
+            if (resultSet.next()) {
+                UsuarioEntity usuario = new UsuarioEntity();
+                usuario.setId(resultSet.getInt("id"));
+                usuario.setUsername(resultSet.getString("username"));
+                usuario.setPasswordHash(resultSet.getString("password_hash"));
+                usuario.setRol(Rol.valueOf(resultSet.getString("rol")));
+                usuario.setAsignacionesDocente(new ArrayList<>());
+                usuario.setEvaluaciones(new ArrayList<>());
+                
+                return Optional.of(usuario);
+            }
+            
+            return Optional.empty();
+        } catch (SQLException e) {
+            log.error("Error finding user by ID: {}", e.getMessage());
+            throw new RuntimeException("Error finding user by ID", e);
+        }
+    }
 }
 

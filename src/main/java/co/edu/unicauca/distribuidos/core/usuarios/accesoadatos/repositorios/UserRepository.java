@@ -35,5 +35,12 @@ public interface UserRepository {
      * @return the saved user entity
      */
     UsuarioEntity save(UsuarioEntity usuario);
+    /**
+     * Find a user by their ID
+     *
+     * @param id the ID of the user to find
+     * @return an Optional containing the user if found, or empty if not found
+     */
+    Optional<UsuarioEntity> findById(Long id);
 }
 
