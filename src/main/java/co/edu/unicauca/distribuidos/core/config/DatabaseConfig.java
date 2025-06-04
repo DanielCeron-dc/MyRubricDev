@@ -26,7 +26,8 @@ import java.util.Properties;
 	"co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos"
 })
 @EnableJpaRepositories(basePackages = {
-	"co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.repositorios"
+	"co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.repositorios",
+        "co.edu.unicauca.distribuidos.core.programa.accesoADatos.repositorios"
 })
 @EnableTransactionManagement
 public class DatabaseConfig {
@@ -58,7 +59,7 @@ public class DatabaseConfig {
         
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos");
+        factory.setPackagesToScan("co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos","co.edu.unicauca.distribuidos.core.programa.accesoADatos.modelos");
         factory.setDataSource(dataSource());
         
         Properties jpaProperties = new Properties();

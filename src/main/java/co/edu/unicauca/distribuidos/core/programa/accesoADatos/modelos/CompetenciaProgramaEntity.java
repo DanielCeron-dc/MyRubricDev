@@ -1,17 +1,30 @@
 // CompetenciaProgramaEntity.java
 package co.edu.unicauca.distribuidos.core.programa.accesoADatos.modelos;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.List;
-
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class CompetenciaProgramaEntity {
+@Getter
+@Setter
+@Entity
+@Table(name = "COMPETENCIAS_PROGRAMA", schema = "PUBLIC")
+public class CompetenciaProgramaEntity{
+    @Id
+    @Column(name = "ID", nullable = false)
     private Integer id;
+
+    @Size(max = 20)
+    @NotNull
+    @Column(name = "CODIGO", nullable = false, length = 20)
+    private String codigo;
+
+    @NotNull
+    @Lob
+    @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
-    private List<ResultadoAprendizajeProgramaEntity> resultados;
+
+    @Column(name = "NIVEL", columnDefinition = "ENUM not null")
+    private NivelCompetencia nivel;
 }
