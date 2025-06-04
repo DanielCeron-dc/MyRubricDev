@@ -88,7 +88,7 @@ public class SecurityConfig {
                 // Only configure truly public endpoints here
                 .requestMatchers(ALWAYS_PUBLIC_ENDPOINTS).permitAll()
                 // Explicitly allow auth endpoints with different path patterns
-                .requestMatchers("/api/auth/**", "/auth/**", "/api/api/auth/**").permitAll()
+                .requestMatchers("/api/auth/**", "/auth/**").permitAll()
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // CORS preflight
                 
                 // Everything else requires authentication - authorization handled by method annotations

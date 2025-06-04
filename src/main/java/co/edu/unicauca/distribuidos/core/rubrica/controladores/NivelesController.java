@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
  * Controlador para gestionar las operaciones relacionadas con los niveles de desempeño
  */
 @RestController
-@RequestMapping("/rubrica/criterio")
+@RequestMapping("/api/rubrica/criterio")
 @RequiredArgsConstructor
 @Slf4j
 @CrossOrigin(origins = "*")

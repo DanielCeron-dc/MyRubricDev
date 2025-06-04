@@ -1,4 +1,4 @@
-package co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos;
+package co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

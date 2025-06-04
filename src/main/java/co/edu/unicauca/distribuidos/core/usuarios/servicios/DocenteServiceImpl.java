@@ -4,21 +4,19 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.repositorios.DocenteRepositoryJPA;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.repositorios.DocenteRepositoryJPA;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.mapper.DocenteMapper;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import co.edu.unicauca.distribuidos.core.errores.BusinessException;
 import co.edu.unicauca.distribuidos.core.errores.modelos.ErrorCode;
-import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos.DocenteEntity;
-import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos.Rol;
-import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos.UsuarioEntity;
-import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.repositorios.DocenteRepository;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.DocenteEntity;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.Rol;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.UsuarioEntity;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.repositorios.DocenteRepository;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.CrearDocenteDTO;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.DocenteDTO;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.RegisterRequestDTO;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service

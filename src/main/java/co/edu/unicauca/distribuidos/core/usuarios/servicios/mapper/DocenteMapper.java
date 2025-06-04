@@ -1,6 +1,6 @@
 package co.edu.unicauca.distribuidos.core.usuarios.servicios.mapper;
 
-import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos.DocenteEntity;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.DocenteEntity;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.CrearDocenteDTO;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.DocenteDTO;
 

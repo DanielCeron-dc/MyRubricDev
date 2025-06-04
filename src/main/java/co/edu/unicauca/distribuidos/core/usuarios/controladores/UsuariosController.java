@@ -1,20 +1,14 @@
 package co.edu.unicauca.distribuidos.core.usuarios.controladores;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos.DocenteEntity;
-import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.repositorios.DocenteRepository;
-import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos.TipoDocente;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.DocenteService;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.CrearDocenteDTO;
 import co.edu.unicauca.distribuidos.core.usuarios.servicios.dto.DocenteDTO;
-import jakarta.annotation.security.PermitAll;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UsuariosController {
 
     private final DocenteService docenteService;
-    //definir metodos en el servicio, no en el controlador
+    // definir metodos en el servicio, no en el controlador
     // Prueba
     @GetMapping()
     public String getUsuarios() {

@@ -1,16 +1,18 @@
-// CompetenciaProgramaEntity.java
-package co.edu.unicauca.distribuidos.core.programa.accesoADatos.modelos;
+package co.edu.unicauca.distribuidos.core.modelos;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "COMPETENCIAS_PROGRAMA", schema = "PUBLIC")
-public class CompetenciaProgramaEntity{
+@Table(name = "RESULTADOS_PROGRAMA", schema = "PUBLIC")
+public class ResultadosPrograma {
     @Id
     @Column(name = "ID", nullable = false)
     private Integer id;
@@ -25,6 +27,9 @@ public class CompetenciaProgramaEntity{
     @Column(name = "DESCRIPCION", nullable = false)
     private String descripcion;
 
-    @Column(name = "NIVEL", columnDefinition = "ENUM not null")
-    private NivelCompetencia nivel;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.RESTRICT)
+    @JoinColumn(name = "ID_COMPETENCIA")
+    private CompetenciasPrograma idCompetencia;
+
 }
