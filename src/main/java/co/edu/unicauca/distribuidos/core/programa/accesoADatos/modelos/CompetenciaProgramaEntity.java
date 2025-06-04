@@ -12,6 +12,7 @@ import lombok.Setter;
 @Table(name = "COMPETENCIAS_PROGRAMA", schema = "PUBLIC")
 public class CompetenciaProgramaEntity{
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     private Integer id;
 
