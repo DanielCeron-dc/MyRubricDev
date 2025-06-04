@@ -1,5 +1,6 @@
-package co.edu.unicauca.distribuidos.core.modelos;
+package co.edu.unicauca.distribuidos.core.evaluacion.accesoADatos.modelos;
 
+import co.edu.unicauca.distribuidos.core.rubrica.dominio.Criterio;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -14,8 +15,9 @@ import java.math.BigDecimal;
 @Setter
 @Entity
 @Table(name = "EVALUACION_CRITERIO", schema = "PUBLIC")
-public class EvaluacionCriterio {
+public class EvaluacionCriterioEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     private Integer id;
 
@@ -23,7 +25,7 @@ public class EvaluacionCriterio {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "ID_EVALUACION", nullable = false)
-    private Evaluacion idEvaluacion;
+    private EvaluacionEntity idEvaluacion;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

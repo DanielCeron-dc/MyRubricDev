@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .username(registerRequest.getUsername())
                 .passwordHash(passwordEncoder.encode(registerRequest.getPassword()))
                 .rol(registerRequest.getRol())
-                .asignacionesDocente(new ArrayList<>())
+
                 .evaluaciones(new ArrayList<>())
                 .enabled(true)
                 .accountNonExpired(true)

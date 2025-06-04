@@ -60,6 +60,7 @@ public class JwtTokenProvider {
             .collect(Collectors.toList());
         log.debug("Generating token for user: {} with authorities: {}", userDetails.getUsername(), authorities);
         claims.put("authorities", authorities);
+
         return createToken(claims, userDetails.getUsername());
     }
 

@@ -8,7 +8,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.modelos.AsignacionCompDocenteEntity;
 import co.edu.unicauca.distribuidos.core.evaluacion.accesoADatos.modelos.EvaluacionEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -51,10 +50,7 @@ public class UsuarioEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(name = "rol", nullable = false)
     private Rol rol;
-    
-    // TODO: Quitar las asignacionesDocente
-    @Transient
-    private List<AsignacionCompDocenteEntity> asignacionesDocente;
+
     
     // TODO: Quitar las evaluaciones
     @Transient
@@ -142,9 +138,6 @@ public class UsuarioEntity implements UserDetails {
      * Initialize empty collections for transient fields
      */
     public void initializeCollections() {
-        if (asignacionesDocente == null) {
-            asignacionesDocente = new ArrayList<>();
-        }
         if (evaluaciones == null) {
             evaluaciones = new ArrayList<>();
         }

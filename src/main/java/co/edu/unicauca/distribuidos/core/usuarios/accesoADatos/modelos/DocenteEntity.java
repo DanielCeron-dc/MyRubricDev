@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
  * Entity representing a teacher (docente) in the system
  */
 @Entity
-@Table(name = "DOCENTE")
+@Table(name = "DOCENTES")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

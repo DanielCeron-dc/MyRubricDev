@@ -1,23 +1,55 @@
-// EvaluacionEntity.java
 package co.edu.unicauca.distribuidos.core.evaluacion.accesoADatos.modelos;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.Date;
 
 import co.edu.unicauca.distribuidos.core.rubrica.dominio.Rubrica;
 import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.UsuarioEntity;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+import java.time.LocalDate;
+
+@Getter
+@Setter
+@Entity
+@Table(name = "EVALUACIONES", schema = "PUBLIC")
 public class EvaluacionEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID", nullable = false)
     private Integer id;
-    private Date fecha;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.RESTRICT)
+    @JoinColumn(name = "ID_ESTUDIANTE", nullable = false)
+    private EstudianteEntity idEstudiante;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.RESTRICT)
+    @JoinColumn(name = "ID_RUBRICA", nullable = false)
+    private Rubrica idRubrica;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.RESTRICT)
+    @JoinColumn(name = "ID_EVALUADOR", nullable = false)
+    private UsuarioEntity idEvaluador;
+
+    @ColumnDefault("CURRENT_DATE")
+    @Column(name = "FECHA")
+    private LocalDate fecha;
+
+    @Lob
+    @Column(name = "COMENTARIOS")
     private String comentarios;
-    private Rubrica rubrica;
-    private EstudianteEntity estudiante;
-    private UsuarioEntity evaluador;
+
+    @ColumnDefault("FALSE")
+    @Column(name = "FINALIZADA")
+    private Boolean finalizada;
+
 }

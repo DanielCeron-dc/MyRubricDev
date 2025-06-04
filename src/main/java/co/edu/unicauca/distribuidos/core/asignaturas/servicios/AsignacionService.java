@@ -1,7 +1,10 @@
 package co.edu.unicauca.distribuidos.core.asignaturas.servicios;
-import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.modelos.AsignacionCompDocenteEntity;
+import co.edu.unicauca.distribuidos.core.asignaturas.dto.AsignacionDocenteCompetenciaDTO;
+import org.springframework.transaction.annotation.Transactional;
 
 
 public interface AsignacionService {
-    AsignacionCompDocenteEntity asignarDocenteCompetencia(Long docenteId, Long asignaturaId, Long competenciaId);
+
+    @Transactional
+    AsignacionDocenteCompetenciaDTO asignarDocenteCompetencia(Integer docenteId, Integer asignaturaId, Integer competenciaId);
 }

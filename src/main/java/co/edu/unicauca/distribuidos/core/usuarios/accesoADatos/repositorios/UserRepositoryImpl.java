@@ -46,7 +46,6 @@ public class UserRepositoryImpl implements UserRepository {
                 usuario.setUsername(resultSet.getString("username"));
                 usuario.setPasswordHash(resultSet.getString("password_hash"));
                 usuario.setRol(Rol.valueOf(resultSet.getString("rol")));
-                usuario.setAsignacionesDocente(new ArrayList<>());
                 usuario.setEvaluaciones(new ArrayList<>());
                 
                 return Optional.of(usuario);
@@ -192,7 +191,6 @@ public class UserRepositoryImpl implements UserRepository {
                 usuario.setUsername(resultSet.getString("username"));
                 usuario.setPasswordHash(resultSet.getString("password_hash"));
                 usuario.setRol(Rol.valueOf(resultSet.getString("rol")));
-                usuario.setAsignacionesDocente(new ArrayList<>());
                 usuario.setEvaluaciones(new ArrayList<>());
                 
                 return Optional.of(usuario);

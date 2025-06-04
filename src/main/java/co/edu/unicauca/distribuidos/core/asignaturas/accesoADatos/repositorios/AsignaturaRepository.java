@@ -1,4 +1,4 @@
-package co.edu.unicauca.distribuidos.core.asignaturas.repositorios;
+package co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.repositorios;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,9 +15,6 @@ public interface AsignaturaRepository extends JpaRepository<AsignaturaEntity, In
     
     // Buscar asignaturas por semestre
     List<AsignaturaEntity> findBySemestre(Integer semestre);
-
-    // buscar asignatiras por id
-    Optional<AsignaturaEntity> findById(Integer id);
     
     // Obtener asignatura con sus relaciones
     @EntityGraph(attributePaths = {"competencias", "resultados", "asignacionesDocente"})

@@ -1,22 +1,43 @@
-// AsignaturaEntity.java
 package co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.modelos;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
-import java.util.List;
-
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "ASIGNATURAS", schema = "PUBLIC")
 public class AsignaturaEntity {
+    @Id
+    @Column(name = "ID", nullable = false)
     private Integer id;
+
+    @Size(max = 20)
+    @NotNull
+    @Column(name = "CODIGO", nullable = false, length = 20)
+    private String codigo;
+
+    @Size(max = 100)
+    @NotNull
+    @Column(name = "NOMBRE", nullable = false, length = 100)
     private String nombre;
+
+    @Column(name = "CREDITOS")
     private Integer creditos;
+
+    @Lob
+    @Column(name = "OBJETIVOS")
     private String objetivos;
+
+    @Column(name = "SEMESTRE")
     private Integer semestre;
-    private List<CompetenciaAsignaturaEntity> competencias;
-    private List<ResultadoAprendizajeAsignaturaEntity> resultados;
-    private List<AsignacionCompDocenteEntity> asignacionesDocente;
+
+    @ColumnDefault("TRUE")
+    @Column(name = "ACTIVA")
+    private Boolean activa;
+
 }

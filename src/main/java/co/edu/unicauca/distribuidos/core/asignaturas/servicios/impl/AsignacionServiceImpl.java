@@ -1,17 +1,21 @@
 package co.edu.unicauca.distribuidos.core.asignaturas.servicios.impl;
 
-import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.modelos.AsignacionCompDocenteEntity;
+import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.modelos.AsignacionAsignaturaEntity;
 import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.modelos.AsignaturaEntity;
-import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.modelos.CompetenciaAsignaturaEntity;     
-import co.edu.unicauca.distribuidos.core.asignaturas.repositorios.AsignacionCompDocenteRepository;
-import co.edu.unicauca.distribuidos.core.asignaturas.repositorios.AsignaturaRepository;
-import co.edu.unicauca.distribuidos.core.asignaturas.repositorios.CompetenciaAsignaturaRepository;
+import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.modelos.CompetenciaAsignaturaEntity;
+import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.repositorios.AsignacionAsignaturaRepository;
+import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.repositorios.AsignaturaRepository;
+import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.repositorios.CompetenciaAsignaturaRepository;
+import co.edu.unicauca.distribuidos.core.asignaturas.dto.AsignacionDocenteCompetenciaDTO;
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.AsignacionService;
-import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.modelos.UsuarioEntity;
-import co.edu.unicauca.distribuidos.core.usuarios.accesoadatos.repositorios.UserRepository;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.PeriodoAcademicoService;
+import co.edu.unicauca.distribuidos.core.errores.BusinessException;
+import co.edu.unicauca.distribuidos.core.errores.modelos.ErrorCode;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.DocenteEntity;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.repositorios.DocenteRepositoryJPA;
+import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.repositorios.UserRepository;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,37 +23,47 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class AsignacionServiceImpl implements AsignacionService {
 
-    private final AsignacionCompDocenteRepository asignacionRepository;
+    private final AsignacionAsignaturaRepository asignacionRepository;
     private final UserRepository usuarioRepository;
+    private final DocenteRepositoryJPA docenteRepository;
     private final AsignaturaRepository asignaturaRepository;
     private final CompetenciaAsignaturaRepository competenciaRepository;
+    // TODO: Fix, there is no academic period
     private final PeriodoAcademicoService periodoService;
 
-    @Override
     @Transactional
-    public AsignacionCompDocenteEntity asignarDocenteCompetencia(Long docenteId, Long asignaturaId, Long competenciaId) {
-        UsuarioEntity docente = usuarioRepository.findById(docenteId)
-                .orElseThrow(() -> new EntityNotFoundException("Docente no encontrado"));
-        
+    @Override
+    public AsignacionDocenteCompetenciaDTO asignarDocenteCompetencia(Integer docenteId, Integer asignaturaId, Integer competenciaId) {
+        DocenteEntity docente = docenteRepository.findById(docenteId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.RESOURCE_NOT_FOUND, "Docente no encontrado"));
+
         AsignaturaEntity asignatura = asignaturaRepository.findById(asignaturaId)
-                .orElseThrow(() -> new EntityNotFoundException("Asignatura no encontrada"));
-        
+                .orElseThrow(() -> new BusinessException(ErrorCode.RESOURCE_NOT_FOUND, "Asignatura no encontrada"));
+
         CompetenciaAsignaturaEntity competencia = competenciaRepository.findById(competenciaId)
-                .orElseThrow(() -> new EntityNotFoundException("Competencia no encontrada"));
-        
-        String periodoActual = periodoService.obtenerPeriodoActual();
-        
-        if (asignacionRepository.existsByUsuarioAndAsignaturaAndPeriodo(
-                docente, asignatura, periodoActual)) {
-            throw new IllegalOperationException("El docente ya está asignado a esta asignatura en el periodo actual");
+                .orElseThrow(() -> new BusinessException(ErrorCode.RESOURCE_NOT_FOUND, "Competencia no encontrada"));
+
+        String periodoActual = periodoService.getPeriodoAcademico();
+
+        if (asignacionRepository.existsByDocenteIdAndAsignaturaIdAndPeriodo(
+                docente.getId(),
+                asignatura.getId(),
+                periodoActual
+        )) {
+            throw new BusinessException(ErrorCode.RESOURCE_ALREADY_EXISTS, "El docente ya está asignado a esta asignatura en el periodo actual");
         }
-        
-        AsignacionCompDocenteEntity asignacion = new AsignacionCompDocenteEntity();
-        asignacion.setUsuario(docente);
+
+        AsignacionAsignaturaEntity asignacion = new AsignacionAsignaturaEntity();
+        asignacion.setDocente(docente);
         asignacion.setAsignatura(asignatura);
-        asignacion.setCompetenciaAsignatura(competencia);
+        asignacion.setCompetencia(competencia);
         asignacion.setPeriodo(periodoActual);
-        
-        return asignacionRepository.save(asignacion);
+
+        AsignacionAsignaturaEntity persisted = asignacionRepository.save(asignacion);
+        AsignacionDocenteCompetenciaDTO returnDto = new AsignacionDocenteCompetenciaDTO();
+        returnDto.setAsignaturaId(asignatura.getId());
+        returnDto.setCompetenciaId(competencia.getId());
+        returnDto.setDocenteId(docente.getId());
+        return returnDto;
     }
 }

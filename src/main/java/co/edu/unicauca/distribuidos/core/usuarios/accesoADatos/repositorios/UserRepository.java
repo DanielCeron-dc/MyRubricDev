@@ -9,7 +9,6 @@ import java.util.Optional;
 /**
  * Repository for user-related database operations
  */
-@Repository
 public interface UserRepository {
     
     /**
