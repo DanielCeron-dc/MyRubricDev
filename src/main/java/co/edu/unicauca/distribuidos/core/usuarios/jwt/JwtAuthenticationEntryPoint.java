@@ -61,10 +61,6 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         // Write error response
         objectMapper.writeValue(response.getOutputStream(), errorResponse);
     }
-    
-    /**
-     * Determine the appropriate error code based on the authentication exception
-     */
 
     /**
      * Determine the appropriate error code based on the authentication exception
@@ -114,29 +110,27 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         // Provide user-friendly error details
         switch (exceptionName) {
             case "BadCredentialsException":
-                return "The provided authentication credentials are invalid";
+                return "Las credenciales dadas no son validas";
             case "AccountExpiredException":
-                return "The user account has expired";
+                return "La cuenta del usuario ha expirado";
             case "CredentialsExpiredException":
-                return "The authentication credentials have expired";
+                return "Las credenciales de autenticación han expirado";
             case "DisabledException":
-                return "The user account is disabled";
+                return "La cuenta del usuario está desactivada";
             case "LockedException":
-                return "The user account is locked";
+                return "La cuenta del usuario esta bloqueada";
             default:
                 if (message != null && message.contains("JWT")) {
                     if (message.contains("expired")) {
-                        return "The authentication token has expired. Please login again";
+                        return "El token ha expirado. Por favor, inicia sesión de nuevo";
                     } else if (message.contains("malformed")) {
-                        return "The authentication token is malformed";
+                        return "El token esta malformado";
                     } else {
-                        return "Invalid authentication token provided";
+                        return "Se ha proporcionado un token inválido";
                     }
                 }
-                return "Authentication is required to access this resource";
+                return "No tienes permisos para esto";
         }
     }
-
-    
 }
 
