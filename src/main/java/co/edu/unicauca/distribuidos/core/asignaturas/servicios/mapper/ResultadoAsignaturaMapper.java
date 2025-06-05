@@ -23,11 +23,19 @@ public class ResultadoAsignaturaMapper {
     }
 
     public ResultadoAsignaturaEntity toEntity(RAActualizarRequestTO dto, CompetenciaAsignaturaEntity competenciaEntity) {
-        if (dto == null || competenciaEntity == null) return null;
+        if (dto == null) return null;
+
 
         ResultadoAsignaturaEntity entity = new ResultadoAsignaturaEntity();
+
+        entity.setId(dto.getId());
         entity.setCodigo(dto.getCodigo());
         entity.setDescripcion(dto.getDescripcion());
+
+        if (competenciaEntity == null) {
+            competenciaEntity = new CompetenciaAsignaturaEntity();
+            competenciaEntity.setId(dto.getIdCompetencia());
+        }
 
         entity.setCompetencia(competenciaEntity);
         return entity;

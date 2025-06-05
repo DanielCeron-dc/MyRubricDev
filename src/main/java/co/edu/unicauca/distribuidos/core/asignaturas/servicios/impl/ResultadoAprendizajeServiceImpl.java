@@ -91,6 +91,9 @@ public class ResultadoAprendizajeServiceImpl implements RaAsignaturaService {
         return resultados.stream().map((r) -> resultadoAsignaturaMapper.toDTO(r, competenciaAsignaturaMapper.toDTO(r.getCompetencia()))).toList();
     }
 
+    /**
+     * Valida si el docente tiene permisos para ejecutar la acción
+     */
     private void validarPermisos(Integer competenciaId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
