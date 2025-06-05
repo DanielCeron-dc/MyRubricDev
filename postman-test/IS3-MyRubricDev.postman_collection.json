@@ -1,0 +1,961 @@
+{
+	"info": {
+		"_postman_id": "a593b1d0-5da1-4e16-9346-a02632cdbfb8",
+		"name": "IS3-MyRubricDev",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38742537"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"pabloc\",\r\n    \"password\": \"12345678\",\r\n    \"rol\": \"COORDINADOR\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Coordinador",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Stores the token from the response in an environment or global variable",
+									"var token = pm.response.json().token;",
+									"if (token)",
+									"    pm.collectionVariables.set(\"token_coordinator\", token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"pabloc\",\n    \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login Coordinador",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"pabloc\",\n    \"password\": \"12345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "origin,access-control-request-method,access-control-request-headers,accept-encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 05 Jun 2025 21:12:18 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6WyJST0xFX0NPT1JESU5BRE9SIl0sInN1YiI6InBhYmxvYyIsImlhdCI6MTc0OTE1NzkzOCwiZXhwIjoxNzQ5MTYxNTM4fQ.D6Alo_IdoSSuc0T-UkPNm99aJkGMT9KWS38gYaCSE_X94pF5Rt97KsPG5DLzTGV69XYd2B-wx-t2zvKE6pS63A\",\n    \"tokenType\": \"Bearer\",\n    \"expiresIn\": 3600000,\n    \"username\": \"pabloc\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "Crear docente",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_coordinator}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"nombre\": \"aa\",\n    \"apellido\": \"jaramillo\",\n    \"correoAcademico\": \"a@mail.com\",\n    \"tipoIdentificacion\": \"CC\",\n    \"identificacion\": \"12312412\",\n    \"tipoDocente\": \"CATEDRA\",\n    \"tituloAcademico\": \"asdfasdf\",\n    \"activo\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/usuarios/docentes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"usuarios",
+								"docentes"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Crear docente",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 1,\n    \"nombre\": \"aa\",\n    \"apellido\": \"jaramillo\",\n    \"correoAcademico\": \"a@mail.com\",\n    \"tipoIdentificacion\": \"CC\",\n    \"identificacion\": \"12312412\",\n    \"tipoDocente\": \"CATEDRA\",\n    \"tituloAcademico\": \"asdfasdf\",\n    \"activo\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/usuarios/docentes",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"usuarios",
+										"docentes"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "origin,access-control-request-method,access-control-request-headers,accept-encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 05 Jun 2025 21:13:49 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 3,\n    \"nombre\": \"aa\",\n    \"apellido\": \"jaramillo\",\n    \"correoAcademico\": \"a@mail.com\",\n    \"tipoIdentificacion\": \"CC\",\n    \"identificacion\": \"12312412\",\n    \"tipoDocente\": \"CATEDRA\",\n    \"tituloAcademico\": \"asdfasdf\",\n    \"activo\": true\n}"
+						}
+					]
+				},
+				{
+					"name": "listar Docentes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_coordinator}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/usuarios/docentes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"usuarios",
+								"docentes"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/usuarios/docentes",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"usuarios",
+										"docentes"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "origin,access-control-request-method,access-control-request-headers,accept-encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 05 Jun 2025 01:45:55 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"nombre\": \"Test DB\",\n        \"apellido\": \"apellido \",\n        \"correoAcademico\": \"mail@mail.com\",\n        \"tipoIdentificacion\": \"CC\",\n        \"identificacion\": \"3213213\",\n        \"tipoDocente\": \"CATEDRA\",\n        \"tituloAcademico\": \"PREGRADO\",\n        \"activo\": null\n    },\n    {\n        \"id\": 2,\n        \"nombre\": \"Test DB\",\n        \"apellido\": \"Apellidos\",\n        \"correoAcademico\": \"correo@unicauca.edu.co\",\n        \"tipoIdentificacion\": \"CE\",\n        \"identificacion\": \"12314123\",\n        \"tipoDocente\": \"CATEDRA\",\n        \"tituloAcademico\": \"PREGRADO\",\n        \"activo\": null\n    },\n    {\n        \"id\": 4,\n        \"nombre\": \"Primera Iteracion\",\n        \"apellido\": \"adfasdfa\",\n        \"correoAcademico\": \"mail@unicauca.edu.co\",\n        \"tipoIdentificacion\": \"CE\",\n        \"identificacion\": \"12314123www\",\n        \"tipoDocente\": \"TIEMPO_COMPLETO\",\n        \"tituloAcademico\": \"ESPECIALIZACION\",\n        \"activo\": null\n    }\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Asignatura",
+			"item": [
+				{
+					"name": "CrearAsignatura",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Matemáticas Avanzadas\",\r\n  \"codigo\": \"AS09\",\r\n  \"creditos\": 4,\r\n  \"objetivos\": \"Estudiar conceptos avanzados...\",\r\n  \"semestre\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/asignaturas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"asignaturas"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "CrearAsignatura",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nombre\": \"Matemáticas Avanzadas\",\r\n  \"codigo\": \"AS09\",\r\n  \"creditos\": 4,\r\n  \"objetivos\": \"Estudiar conceptos avanzados...\",\r\n  \"semestre\": 5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/asignaturas",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"asignaturas"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "origin,access-control-request-method,access-control-request-headers,accept-encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 05 Jun 2025 21:14:57 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 4,\n    \"nombre\": \"Matemáticas Avanzadas\",\n    \"creditos\": 4,\n    \"codigo\": \"AS09\",\n    \"objetivos\": \"Estudiar conceptos avanzados...\",\n    \"semestre\": 5\n}"
+						}
+					]
+				},
+				{
+					"name": "Editar asignatura",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1,\r\n  \"nombre\": \"Matemáticas Superior\",\r\n  \"codigo\": \"AS08\",\r\n  \"creditos\": 5,\r\n  \"objetivos\": \"Conceptos actualizados...\",\r\n  \"semestre\": 6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/asignaturas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"asignaturas"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Editar asignatura",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 1,\r\n  \"nombre\": \"Matemáticas Superior\",\r\n  \"codigo\": \"AS08\",\r\n  \"creditos\": 5,\r\n  \"objetivos\": \"Conceptos actualizados...\",\r\n  \"semestre\": 6\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/asignaturas",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"asignaturas"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "origin,access-control-request-method,access-control-request-headers,accept-encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 05 Jun 2025 21:18:21 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"nombre\": \"Matemáticas Superior\",\n    \"creditos\": 5,\n    \"codigo\": \"AS08\",\n    \"objetivos\": \"Conceptos actualizados...\",\n    \"semestre\": 6\n}"
+						}
+					]
+				},
+				{
+					"name": "Asignar Docente Competencia",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_coordinator}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"docenteId\": 2,\r\n  \"asignaturaId\": 1,\r\n  \"competenciaId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/asignaturas/asignar",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"asignaturas",
+								"asignar"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Agregar Docente Competencia",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"docenteId\": 2,\r\n  \"asignaturaId\": 1,\r\n  \"competenciaId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/asignaturas/asignar",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"asignaturas",
+										"asignar"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "origin,access-control-request-method,access-control-request-headers,accept-encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 05 Jun 2025 21:19:54 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 4,\n    \"docente\": {\n        \"id\": 2,\n        \"nombre\": \"Ana\",\n        \"apellido\": \"González\",\n        \"correoAcademico\": \"agonzalez@universidad.edu.co\",\n        \"tipoIdentificacion\": \"CC\",\n        \"identificacion\": \"9876543210\",\n        \"tipoDocente\": \"CATEDRA\",\n        \"tituloAcademico\": \"Especialista en Bases de Datos\",\n        \"activo\": true\n    },\n    \"asignatura\": {\n        \"id\": 1,\n        \"nombre\": \"Matemáticas Superior\",\n        \"creditos\": 5,\n        \"codigo\": \"AS08\",\n        \"objetivos\": \"Conceptos actualizados...\",\n        \"semestre\": 6\n    },\n    \"competencia\": {\n        \"id\": 6,\n        \"codigo\": \"CP0112\",\n        \"descripcion\": \"Capacidad para diseñar software de calidad\",\n        \"competenciaProgramaId\": 1\n    },\n    \"periodo\": \"2025_01\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "RAAsignatura",
+			"item": [
+				{
+					"name": "Crear Resultado de Aprendizaje",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"descripcion\": \"Resuelve ecuaciones diferenciales de segundo orden\",\r\n  \"codigo\": \"RA003\",\r\n  \"idCompetencia\": 4  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/asignaturas/ra",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"asignaturas",
+								"ra"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Crear Resultado de Aprendizaje",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"descripcion\": \"Resuelve ecuaciones diferenciales de segundo orden\",\r\n  \"codigo\": \"RA003\",\r\n  \"idCompetencia\": 4  \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/asignaturas/ra",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"asignaturas",
+										"ra"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "origin,access-control-request-method,access-control-request-headers,accept-encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 05 Jun 2025 21:26:24 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 7,\n    \"descripcion\": \"Resuelve ecuaciones diferenciales de segundo orden\",\n    \"codigo\": \"RA003\",\n    \"competenciaAsignatura\": {\n        \"id\": 4,\n        \"codigo\": \"COMP0009\",\n        \"descripcion\": \"Hola\",\n        \"competenciaProgramaId\": 1\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Editar Resultado de Aprendizaje",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 50,\r\n  \"descripcion\": \"Resuelve ecuaciones diferenciales complejas\",\r\n  \"competenciaId\": 205,\r\n  \"resultadoProgramaId\": 401\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/asignatura/ra",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"asignatura",
+								"ra"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CompetenciaAsignatura",
+			"item": [
+				{
+					"name": "Crear Competencia de Asignatura",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"competenciaProgramaId\": 1,\r\n  \"descripcion\": \"Hola\",\r\n  \"codigo\": \"COMP0009\",\r\n  \"asignaturaId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/asignaturas/competencia",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"asignaturas",
+								"competencia"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Crear Competencia de Asignatura",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"competenciaProgramaId\": 1,\r\n  \"descripcion\": \"Hola\",\r\n  \"codigo\": \"COMP0009\",\r\n  \"asignaturaId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/asignaturas/competencia",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"asignaturas",
+										"competencia"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "origin,access-control-request-method,access-control-request-headers,accept-encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 05 Jun 2025 21:23:42 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 4,\n    \"codigo\": \"COMP0009\",\n    \"descripcion\": \"Hola\",\n    \"competenciaProgramaId\": 1\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Listar Docentes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_coordinator}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/usuarios/docentes",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"usuarios",
+						"docentes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Competencias",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_coordinator}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/programa/competencias",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"programa",
+						"competencias"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token_coordinator}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "localhost:8082",
+			"type": "default"
+		},
+		{
+			"key": "user_token",
+			"value": ""
+		},
+		{
+			"key": "token_coordinator",
+			"value": ""
+		}
+	]
+}

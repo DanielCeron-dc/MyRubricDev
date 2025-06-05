@@ -1,7 +1,9 @@
 package co.edu.unicauca.distribuidos.core.errores.modelos;
 
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -22,6 +24,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import jakarta.validation.ConstraintViolationException;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -270,5 +273,34 @@ public class ErrorController {
         errorResponse.setPath(request.getRequestURI());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNoResourceFound(
+            NoResourceFoundException ex, HttpServletRequest request
+    ) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                ErrorCode.RESOURCE_NOT_FOUND.getCode(),
+                "No se encontro la ruta " + ex.getResourcePath(),
+                HttpStatus.NOT_FOUND.value()
+        );
+        errorResponse.setDetails("No existe el recurso");
+        errorResponse.setPath(request.getRequestURI());
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
+    public ResponseEntity<ErrorResponse> handleMediaTypeNotSupported(
+            HttpMediaTypeNotSupportedException ex, HttpServletRequest request
+    ) {
+        System.out.println(ex.getStatusCode());
+        ErrorResponse errorResponse = new ErrorResponse(
+                ErrorCode.INVALID_FORMAT.getCode(),
+                "No se admite este formato de peticion",
+                HttpStatus.UNSUPPORTED_MEDIA_TYPE.value()
+        );
+        errorResponse.setDetails("No se admite el formato: " + ex.getContentType());
+        errorResponse.setPath(request.getRequestURI());
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNSUPPORTED_MEDIA_TYPE);
     }
 }
