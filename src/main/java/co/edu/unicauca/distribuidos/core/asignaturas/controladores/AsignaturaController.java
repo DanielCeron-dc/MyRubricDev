@@ -28,7 +28,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/asignatura")
+@RequestMapping("/api/asignaturas")
 @RequiredArgsConstructor
 public class AsignaturaController {
 

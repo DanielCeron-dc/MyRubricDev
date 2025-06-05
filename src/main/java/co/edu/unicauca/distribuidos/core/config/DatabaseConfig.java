@@ -56,10 +56,11 @@ public class DatabaseConfig {
                 "co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos",
                 "co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.modelos",
                 "co.edu.unicauca.distribuidos.core.programa.accesoADatos.modelos",
-                "co.edu.unicauca.distribuidos.core.rubrica.accesoADatos.modelos"
+                "co.edu.unicauca.distribuidos.core.rubrica.accesoADatos.modelos",
+                "co.edu.unicauca.distribuidos.core.evaluacion.accesoADatos.modelos"
         );
         factory.setDataSource(dataSource());
-        
+
         Properties jpaProperties = new Properties();
         // Dialect configuration
         jpaProperties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
