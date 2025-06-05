@@ -12,10 +12,18 @@ public class ProgramaMapper {
 
     public CompetenciaProgramaDTO toDTO(CompetenciaProgramaEntity entity) {
         CompetenciaProgramaDTO dto = new CompetenciaProgramaDTO();
-        dto.setId(entity.getId());
-        dto.setCodigo(entity.getCodigo());
-        dto.setDescripcion(entity.getDescripcion());
-        dto.setNivel(entity.getNivel().name());
+        try {
+            dto.setId(entity.getId());
+            dto.setCodigo(entity.getCodigo());
+            dto.setDescripcion(entity.getDescripcion());
+            dto.setNivel(entity.getNivel().name());
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            System.err.println("Error mapeando entidad ID=" + entity.getId() +
+                    ". Detalle: descripción='" + entity.getDescripcion() + "'");
+            ex.printStackTrace();
+            throw ex; // o envuelve en una excepción personalizada
+        }
+
         return dto;
     }
 

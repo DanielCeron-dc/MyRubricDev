@@ -14,7 +14,7 @@ import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.request.Asign
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.AsignaturaService;
 import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.repositorios.AsignaturaRepository;
 
-import java.util.ArrayList;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -49,11 +49,13 @@ public class AsignaturaServiceImpl implements AsignaturaService {
 
     @Override
     public List<AsignaturaDTO> listarAsignaturas() {
+
         List<AsignaturaEntity> asignaturas = asignaturaRepository.findAll();
         List<AsignaturaDTO> asignaturasDTO = new LinkedList<>();
         for (AsignaturaEntity asignatura : asignaturas) {
             asignaturasDTO.add(asignaturaMapper.toDTO(asignatura));
         }
         return asignaturasDTO;
+
     }
 }

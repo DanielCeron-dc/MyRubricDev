@@ -87,6 +87,38 @@ public class AsignaturaController {
         return new ResponseEntity<>(asignacion, HttpStatus.CREATED);
     }
 
+    /**
+     * Lista todas las asignaciones
+     * Permisos: Solo coordinador
+     */
+    @GetMapping("/asignaciones")
+    @PreAuthorize("hasAnyRole('DOCENTE', 'COORDINADOR')")
+    public ResponseEntity<List<AsignacionAsignaturaDTO>> listarAsignaciones() {
+        return ResponseEntity.ok(asignacionService.listarAsignaciones());
+    }
+
+    /**
+     * Lista las asignaciones asociadas a un docente
+     * Permisos: Solo coordinador
+     */
+    @GetMapping("/asignaciones/docente")
+    @PreAuthorize("hasAnyRole('DOCENTE', 'COORDINADOR')")
+    public ResponseEntity<List<AsignacionAsignaturaDTO>> listarAsignacionesDocente() {
+        return ResponseEntity.ok(asignacionService.listarAsignacionesAsociadas());
+    }
+
+    /**
+     * Lista las asignaciones asociadas a un docente
+     * Permisos: Solo coordinador
+     */
+    @GetMapping("/asignaciones/{id}")
+    @PreAuthorize("hasAnyRole('DOCENTE', 'COORDINADOR')")
+    public ResponseEntity<AsignacionAsignaturaDTO> listarAsignacionesDocente(
+            @PathVariable Integer id
+    ) {
+        return ResponseEntity.ok(asignacionService.buscarAsignacionPorId(id));
+    }
+
     @GetMapping("/competencias")
     @PreAuthorize("hasAnyRole('DOCENTE', 'COORDINADOR')")
     public ResponseEntity<List<CompetenciaAsignaturaDTO>> listarCompetencias() {

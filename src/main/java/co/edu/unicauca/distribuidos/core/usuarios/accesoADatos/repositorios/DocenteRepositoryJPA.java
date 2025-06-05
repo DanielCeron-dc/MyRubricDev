@@ -10,4 +10,6 @@ import java.util.Optional;
 @Repository
 public interface DocenteRepositoryJPA extends JpaRepository<DocenteEntity, Integer> {
     Optional<DocenteEntity> findByUsuarioUsername(String nombreUsuario);
+
+    Optional<DocenteEntity> findByUsuarioId(Integer id);
 }

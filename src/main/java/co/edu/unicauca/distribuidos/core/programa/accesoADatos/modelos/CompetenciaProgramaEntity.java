@@ -27,5 +27,6 @@ public class CompetenciaProgramaEntity{
     private String descripcion;
 
     @Column(name = "NIVEL", columnDefinition = "ENUM not null")
+    @Enumerated(EnumType.STRING)
     private NivelCompetencia nivel;
 }

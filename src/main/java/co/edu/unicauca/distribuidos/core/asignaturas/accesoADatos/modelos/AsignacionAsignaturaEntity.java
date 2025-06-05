@@ -18,12 +18,12 @@ public class AsignacionAsignaturaEntity {
     @Column(name = "ID", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "ID_COMPETENCIA")
     private CompetenciaAsignaturaEntity competencia;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "ID_ASIGNATURA")
     private AsignaturaEntity asignatura;
@@ -32,7 +32,7 @@ public class AsignacionAsignaturaEntity {
     @Column(name = "PERIODO", length = 100)
     private String periodo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "ID_DOCENTE")
     private DocenteEntity docente;

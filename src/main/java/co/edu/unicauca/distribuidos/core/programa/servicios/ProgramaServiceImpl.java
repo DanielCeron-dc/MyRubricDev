@@ -23,9 +23,9 @@ public class ProgramaServiceImpl implements ProgramaService {
 
     @Override
     public List<CompetenciaProgramaDTO> listarCompetencias() {
-        return competenciaRepo.findAllByOrderByCodigoAsc().stream()
-                .map(mapper::toDTO)
-                .collect(Collectors.toList());
+        List<CompetenciaProgramaEntity> competencias = competenciaRepo.findAll();
+        System.out.println(competencias);
+        return competencias.stream().map(mapper::toDTO).collect(Collectors.toList());
     }
 
     @Override
