@@ -1,13 +1,9 @@
-package co.edu.unicauca.distribuidos.core.asignaturas.dto.request;
-
+package co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-public class AsignacionRequestDTO {
-    
+public class AsignacionDocenteCompetenciaDTO {
     @NotNull(message = "El ID del docente es obligatorio")
     private Integer docenteId;
     
@@ -16,5 +12,4 @@ public class AsignacionRequestDTO {
     
     @NotNull(message = "El ID de la competencia es obligatorio")
     private Integer competenciaId;
-
 }

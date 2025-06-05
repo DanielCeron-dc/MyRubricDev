@@ -1,4 +1,5 @@
-package co.edu.unicauca.distribuidos.core.asignaturas.dto;
+package co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -10,6 +11,9 @@ public class AsignaturaDTO {
     private String nombre;
     @NotNull(message = "Los créditos son obligatorios")
     private Integer creditos;
+    @NotNull(message = "El codigo es obligatorio")
+    private String codigo;
+    @NotNull(message = "Los objetivos son obligatorios")
     private String objetivos;
     @NotNull(message = "El semestre es obligatorio")
     private Integer semestre;

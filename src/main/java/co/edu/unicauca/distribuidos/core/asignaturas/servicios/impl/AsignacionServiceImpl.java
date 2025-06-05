@@ -6,7 +6,7 @@ import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.modelos.Compet
 import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.repositorios.AsignacionAsignaturaRepository;
 import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.repositorios.AsignaturaRepository;
 import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.repositorios.CompetenciaAsignaturaRepository;
-import co.edu.unicauca.distribuidos.core.asignaturas.dto.AsignacionDocenteCompetenciaDTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.AsignacionDocenteCompetenciaDTO;
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.AsignacionService;
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.PeriodoAcademicoService;
 import co.edu.unicauca.distribuidos.core.errores.BusinessException;

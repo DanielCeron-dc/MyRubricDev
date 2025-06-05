@@ -1,7 +1,7 @@
 package co.edu.unicauca.distribuidos.core.asignaturas.servicios;
 
-import co.edu.unicauca.distribuidos.core.asignaturas.dto.CompetenciaAsignaturaDTO;
-import co.edu.unicauca.distribuidos.core.asignaturas.dto.request.CompetenciaAsignaturaRequestDTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.CompetenciaAsignaturaDTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.request.CompetenciaAsignaturaRequestDTO;
 
 public interface CompetenciaService {
     /**

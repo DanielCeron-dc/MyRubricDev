@@ -3,8 +3,8 @@ package co.edu.unicauca.distribuidos.core.rubrica.servicios.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.edu.unicauca.distribuidos.core.rubrica.dominio.Criterio;
-import co.edu.unicauca.distribuidos.core.rubrica.dominio.NivelDesempeno;
+import co.edu.unicauca.distribuidos.core.rubrica.accesoADatos.modelos.Criterio;
+import co.edu.unicauca.distribuidos.core.rubrica.accesoADatos.modelos.NivelDesempeno;
 import co.edu.unicauca.distribuidos.core.rubrica.accesoADatos.repositorios.CriterioRepository;
 import co.edu.unicauca.distribuidos.core.rubrica.accesoADatos.repositorios.NivelDesempenoRepository;
 import co.edu.unicauca.distribuidos.core.rubrica.servicios.NivelDesempenoService;

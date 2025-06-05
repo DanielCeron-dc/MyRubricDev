@@ -1,6 +1,6 @@
 package co.edu.unicauca.distribuidos.core.evaluacion.accesoADatos.modelos;
 
-import co.edu.unicauca.distribuidos.core.rubrica.dominio.Rubrica;
+import co.edu.unicauca.distribuidos.core.rubrica.accesoADatos.modelos.Rubrica;
 import co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos.UsuarioEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

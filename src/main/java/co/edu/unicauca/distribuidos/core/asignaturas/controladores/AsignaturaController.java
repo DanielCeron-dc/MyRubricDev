@@ -1,25 +1,22 @@
 package co.edu.unicauca.distribuidos.core.asignaturas.controladores;
 
-import co.edu.unicauca.distribuidos.core.asignaturas.dto.AsignacionDocenteCompetenciaDTO;
-import co.edu.unicauca.distribuidos.core.asignaturas.dto.CompetenciaAsignaturaDTO;
-import co.edu.unicauca.distribuidos.core.asignaturas.dto.ResultadoAprendizajeDTO;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.AsignacionDocenteCompetenciaDTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.AsignaturaDTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.CompetenciaAsignaturaDTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.ResultadoAprendizajeDTO;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.AsignaturaService;
-import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.modelos.AsignaturaEntity;
-import co.edu.unicauca.distribuidos.core.asignaturas.dto.request.AsignacionRequestDTO;
-import co.edu.unicauca.distribuidos.core.asignaturas.dto.request.AsignaturaRequestDTO;
-import co.edu.unicauca.distribuidos.core.asignaturas.dto.request.CompetenciaAsignaturaRequestDTO;
-import co.edu.unicauca.distribuidos.core.asignaturas.dto.request.RAActualizarRequestTO;
-import co.edu.unicauca.distribuidos.core.asignaturas.dto.request.RACrearRequestDTO;
+
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.request.AsignacionRequestDTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.request.AsignaturaRequestDTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.request.CompetenciaAsignaturaRequestDTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.request.RAActualizarRequestTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.request.RACrearRequestDTO;
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.AsignacionService;
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.CompetenciaService;
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.RaAsignaturaService;
@@ -27,6 +24,8 @@ import co.edu.unicauca.distribuidos.core.asignaturas.servicios.RaAsignaturaServi
 import lombok.RequiredArgsConstructor;
 
 import jakarta.validation.Valid;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/asignatura")
@@ -38,15 +37,25 @@ public class AsignaturaController {
     private final CompetenciaService competenciaAsignaturaService;
     private final RaAsignaturaService resultadoAprendizajeService;
 
+
+    /**
+     * Lista todas las asignaturas del programa
+     */
+    @GetMapping
+    @PreAuthorize("hasRole('COORDINATOR')")
+    public ResponseEntity<List<AsignaturaDTO>> listarAsignaturas() {
+        return ResponseEntity.ok(asignaturaService.listarAsignaturas());
+    }
+
     /**
      * Crea una nueva asignatura
      * Permisos: Solo coordinador
      */
     @PostMapping
     @PreAuthorize("hasRole('COORDINADOR')")
-    public ResponseEntity<AsignaturaEntity> crearAsignatura(
+    public ResponseEntity<AsignaturaDTO> crearAsignatura(
             @Valid @RequestBody AsignaturaRequestDTO request) {
-        AsignaturaEntity nuevaAsignatura = asignaturaService.crearAsignatura(request);
+        AsignaturaDTO nuevaAsignatura = asignaturaService.crearAsignatura(request);
         return new ResponseEntity<>(nuevaAsignatura, HttpStatus.CREATED);
     }
 
@@ -56,9 +65,9 @@ public class AsignaturaController {
      */
     @PutMapping
     @PreAuthorize("hasRole('COORDINADOR')")
-    public ResponseEntity<AsignaturaEntity> actualizarAsignatura(
+    public ResponseEntity<AsignaturaDTO> actualizarAsignatura(
             @Valid @RequestBody AsignaturaRequestDTO request) {
-        AsignaturaEntity asignaturaActualizada = asignaturaService.actualizarAsignatura(request);
+        AsignaturaDTO asignaturaActualizada = asignaturaService.actualizarAsignatura(request);
         return ResponseEntity.ok(asignaturaActualizada);
     }
 

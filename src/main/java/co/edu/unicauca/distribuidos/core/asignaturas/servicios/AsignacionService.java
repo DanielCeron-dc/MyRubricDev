@@ -1,5 +1,5 @@
 package co.edu.unicauca.distribuidos.core.asignaturas.servicios;
-import co.edu.unicauca.distribuidos.core.asignaturas.dto.AsignacionDocenteCompetenciaDTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.AsignacionDocenteCompetenciaDTO;
 import org.springframework.transaction.annotation.Transactional;
 
 

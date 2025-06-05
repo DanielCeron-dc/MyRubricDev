@@ -1,4 +1,4 @@
-package co.edu.unicauca.distribuidos.core.asignaturas.dto;
+package co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

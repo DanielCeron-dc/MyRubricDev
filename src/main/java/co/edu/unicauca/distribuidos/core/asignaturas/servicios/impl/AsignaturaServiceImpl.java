@@ -1,42 +1,56 @@
 package co.edu.unicauca.distribuidos.core.asignaturas.servicios.impl;
 
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.AsignaturaDTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.mapper.AsignaturaMapper;
 import co.edu.unicauca.distribuidos.core.errores.BusinessException;
 import co.edu.unicauca.distribuidos.core.errores.modelos.ErrorCode;
 import lombok.RequiredArgsConstructor;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.modelos.AsignaturaEntity;
-import co.edu.unicauca.distribuidos.core.asignaturas.dto.request.AsignaturaRequestDTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.request.AsignaturaRequestDTO;
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.AsignaturaService;
 import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.repositorios.AsignaturaRepository;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AsignaturaServiceImpl implements AsignaturaService {
 
     private final AsignaturaRepository asignaturaRepository;
+    private final AsignaturaMapper asignaturaMapper;
 
     @Override
     @Transactional
-    public AsignaturaEntity crearAsignatura(AsignaturaRequestDTO request) {
-        AsignaturaEntity asignatura = new AsignaturaEntity();
-        asignatura.setNombre(request.getNombre());
-        asignatura.setCreditos(request.getCreditos());
-        asignatura.setActiva(true);
-        asignatura.setSemestre(request.getSemestre());
-        asignatura.setObjetivos(request.getObjetivos());
-        asignatura.setCodigo(request.getCodigo());
-        return asignaturaRepository.save(asignatura);
+    public AsignaturaDTO crearAsignatura(AsignaturaRequestDTO request) {
+        AsignaturaEntity asignatura = asignaturaMapper.toEntity(request);
+        AsignaturaEntity persisted = asignaturaRepository.save(asignatura);
+        return asignaturaMapper.toDTO(persisted);
     }
 
     @Override
     @Transactional
-    public AsignaturaEntity actualizarAsignatura(AsignaturaRequestDTO request) {
+    public AsignaturaDTO actualizarAsignatura(AsignaturaRequestDTO request) {
         AsignaturaEntity existente = asignaturaRepository.findById(request.getId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.RESOURCE_NOT_FOUND, "Asignatura no encontrada"));
+        AsignaturaEntity asignatura = asignaturaMapper.toEntity(request);
+        AsignaturaEntity persisted = asignaturaRepository.save(asignatura);
 
-        return asignaturaRepository.save(existente);
+        return asignaturaMapper.toDTO(persisted);
+    }
+
+    @Override
+    public List<AsignaturaDTO> listarAsignaturas() {
+        List<AsignaturaEntity> asignaturas = asignaturaRepository.findAll();
+        List<AsignaturaDTO> asignaturasDTO = new LinkedList<>();
+        for (AsignaturaEntity asignatura : asignaturas) {
+            asignaturasDTO.add(asignaturaMapper.toDTO(asignatura));
+        }
+        return asignaturasDTO;
     }
 }

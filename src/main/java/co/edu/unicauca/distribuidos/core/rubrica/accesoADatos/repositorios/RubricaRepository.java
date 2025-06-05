@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import co.edu.unicauca.distribuidos.core.rubrica.dominio.Rubrica;
+import co.edu.unicauca.distribuidos.core.rubrica.accesoADatos.modelos.Rubrica;
 
 /**
  * Repositorio para la entidad Rubrica

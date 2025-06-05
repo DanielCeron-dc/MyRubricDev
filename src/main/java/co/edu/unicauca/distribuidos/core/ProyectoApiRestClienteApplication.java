@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @SpringBootApplication
 @EntityScan(basePackages = {
-        "co.edu.unicauca.distribuidos.core.rubrica.dominio",
+        "co.edu.unicauca.distribuidos.core.rubrica.accesoADatos.modelos",
         "co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos",
         "co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.modelos",
         "co.edu.unicauca.distribuidos.core.programa.accesoADatos.modelos",

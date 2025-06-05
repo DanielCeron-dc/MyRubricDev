@@ -11,6 +11,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import jakarta.persistence.EntityManagerFactory;
+
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -24,7 +25,7 @@ public class DatabaseConfig {
 
     /**
      * Configura la fuente de datos para la aplicación
-     * 
+     *
      * @return DataSource configurado para H2
      */
     @Bean
@@ -36,10 +37,10 @@ public class DatabaseConfig {
                 .addScript("data.sql")
                 .build();
     }
-    
+
     /**
      * Configura el entity manager factory con todos los paquetes de entidades
-     * 
+     *
      * @return Entity Manager Factory configurado
      */
     @Bean
@@ -48,59 +49,59 @@ public class DatabaseConfig {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setGenerateDdl(false);
         vendorAdapter.setShowSql(true);
-        
+
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
         factory.setPackagesToScan(
-            "co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos",
-            "co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.modelos",
+                "co.edu.unicauca.distribuidos.core.usuarios.accesoADatos.modelos",
+                "co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.modelos",
                 "co.edu.unicauca.distribuidos.core.programa.accesoADatos.modelos",
-                "co.edu.unicauca.distribuidos.core.rubrica.dominio"
+                "co.edu.unicauca.distribuidos.core.rubrica.accesoADatos.modelos"
         );
         factory.setDataSource(dataSource());
         
         Properties jpaProperties = new Properties();
         // Dialect configuration
         jpaProperties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-        
+
         // SQL logging
         jpaProperties.put("hibernate.show_sql", "true");
         jpaProperties.put("hibernate.format_sql", "true");
         jpaProperties.put("hibernate.use_sql_comments", "true");
-        
+
         // Schema generation
         jpaProperties.put("hibernate.hbm2ddl.auto", "update");
         jpaProperties.put("hibernate.globally_quoted_identifiers", "true");
-        
+
         // Performance settings
         jpaProperties.put("hibernate.jdbc.batch_size", "50");
         jpaProperties.put("hibernate.order_inserts", "true");
         jpaProperties.put("hibernate.order_updates", "true");
         jpaProperties.put("hibernate.jdbc.batch_versioned_data", "true");
-        
+
         // Connection pool settings
         jpaProperties.put("hibernate.connection.provider_class", "org.hibernate.hikaricp.internal.HikariCPConnectionProvider");
         jpaProperties.put("hibernate.hikari.minimumIdle", "5");
         jpaProperties.put("hibernate.hikari.maximumPoolSize", "20");
         jpaProperties.put("hibernate.hikari.idleTimeout", "30000");
-        
+
         // Second-level cache settings
         jpaProperties.put("hibernate.cache.use_second_level_cache", "true");
         jpaProperties.put("hibernate.cache.region.factory_class", "org.hibernate.cache.jcache.JCacheRegionFactory");
         jpaProperties.put("hibernate.javax.cache.provider", "org.ehcache.jsr107.EhcacheCachingProvider");
-        
+
         // H2 specific settings
         jpaProperties.put("hibernate.h2.console.enabled", "true");
         jpaProperties.put("hibernate.h2.console.path", "/h2-console");
-        
+
         factory.setJpaProperties(jpaProperties);
-        
+
         return factory;
     }
-    
+
     /**
      * Configura el gestor de transacciones para JPA
-     * 
+     *
      * @param entityManagerFactory Factory para la creación de EntityManagers
      * @return Transaction Manager configurado
      */

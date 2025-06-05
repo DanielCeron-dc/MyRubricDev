@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import co.edu.unicauca.distribuidos.core.rubrica.dominio.Criterio;
+import co.edu.unicauca.distribuidos.core.rubrica.accesoADatos.modelos.Criterio;
 
 /**
  * Repositorio para la entidad Criterio

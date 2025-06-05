@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import co.edu.unicauca.distribuidos.core.rubrica.dominio.NivelDesempeno;
+import co.edu.unicauca.distribuidos.core.rubrica.accesoADatos.modelos.NivelDesempeno;
 
 /**
  * Repositorio para la entidad NivelDesempeno

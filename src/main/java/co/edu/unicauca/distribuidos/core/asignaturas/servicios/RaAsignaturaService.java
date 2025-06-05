@@ -1,8 +1,8 @@
 package co.edu.unicauca.distribuidos.core.asignaturas.servicios;
 
-import co.edu.unicauca.distribuidos.core.asignaturas.dto.ResultadoAprendizajeDTO;
-import co.edu.unicauca.distribuidos.core.asignaturas.dto.request.RAActualizarRequestTO;
-import co.edu.unicauca.distribuidos.core.asignaturas.dto.request.RACrearRequestDTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.ResultadoAprendizajeDTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.request.RAActualizarRequestTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.request.RACrearRequestDTO;
 
 /**
  *

@@ -1,4 +1,4 @@
-package co.edu.unicauca.distribuidos.core.rubrica.dominio;
+package co.edu.unicauca.distribuidos.core.rubrica.accesoADatos.modelos;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

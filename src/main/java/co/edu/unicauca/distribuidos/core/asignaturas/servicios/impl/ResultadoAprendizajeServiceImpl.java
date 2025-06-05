@@ -5,11 +5,11 @@ import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.modelos.Compet
 import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.modelos.ResultadoAsignaturaEntity;
 import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.repositorios.AsignacionAsignaturaRepository;
 import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.repositorios.ResultadosAsignaturaRepository;
-import co.edu.unicauca.distribuidos.core.asignaturas.dto.ResultadoAprendizajeDTO;
-import co.edu.unicauca.distribuidos.core.asignaturas.dto.request.RAActualizarRequestTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.ResultadoAprendizajeDTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.request.RAActualizarRequestTO;
 import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.repositorios.CompetenciaAsignaturaRepository;
 
-import co.edu.unicauca.distribuidos.core.asignaturas.dto.request.RACrearRequestDTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.request.RACrearRequestDTO;
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.PeriodoAcademicoService;
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.RaAsignaturaService;
 import co.edu.unicauca.distribuidos.core.errores.BusinessException;
