@@ -29,7 +29,7 @@ public class ResultadoAsignaturaEntity {
     private String descripcion;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @NotNull
     @JoinColumn(name = "ID_COMPETENCIA")

@@ -156,7 +156,12 @@ public class AsignaturaController {
     @GetMapping("/ras")
     @PreAuthorize("hasAnyRole('DOCENTE', 'COORDINADOR')")
     public ResponseEntity<List<ResultadoAsignaturaDTO>> listarResultadoAsignatura() {
-        return ResponseEntity.ok(resultadoAprendizajeService.listarCompetencias());
+        return ResponseEntity.ok(resultadoAprendizajeService.listarResultadosAsignatura());
+    }
+
+    @GetMapping("/competencia/{id}/ras")
+    public ResponseEntity<List<ResultadoAsignaturaDTO>> listarResultadosAsignaturaCompetencia(@PathVariable Integer id) {
+        return ResponseEntity.ok(resultadoAprendizajeService.listarResultadosDeCompetencia(id));
     }
 
     /**

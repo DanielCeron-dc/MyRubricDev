@@ -34,7 +34,6 @@ import java.util.List;
 public class ResultadoAprendizajeServiceImpl implements RaAsignaturaService {
 
     private final ResultadosAsignaturaRepository raRepository;
-    private final ResultadoProgramaRepository resultadoProgramaRepository;
     private final CompetenciaAsignaturaRepository competenciaRepository;
     private final PeriodoAcademicoService periodoAcademicoService;
     private final AsignacionAsignaturaRepository asignacionRepository;
@@ -77,13 +76,19 @@ public class ResultadoAprendizajeServiceImpl implements RaAsignaturaService {
     }
 
     @Override
-    public List<ResultadoAsignaturaDTO> listarCompetencias() {
+    public List<ResultadoAsignaturaDTO> listarResultadosAsignatura() {
         List<ResultadoAsignaturaEntity> resultados = raRepository.findAll();
         List<ResultadoAsignaturaDTO> resultadoDTOs = new LinkedList<>();
         for (ResultadoAsignaturaEntity resultado : resultados) {
             resultadoDTOs.add(resultadoAsignaturaMapper.toDTO(resultado, competenciaAsignaturaMapper.toDTO(resultado.getCompetencia())));
         }
         return resultadoDTOs;
+    }
+
+    @Override
+    public List<ResultadoAsignaturaDTO> listarResultadosDeCompetencia(Integer idCompetencia) {
+        List<ResultadoAsignaturaEntity> resultados = raRepository.findByCompetenciaId(idCompetencia);
+        return resultados.stream().map((r) -> resultadoAsignaturaMapper.toDTO(r, competenciaAsignaturaMapper.toDTO(r.getCompetencia()))).toList();
     }
 
     private void validarPermisos(Integer competenciaId) {
