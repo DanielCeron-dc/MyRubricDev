@@ -44,7 +44,7 @@ public class ErrorController {
                 ErrorCode.INTERNAL_SERVER_ERROR.getCode(),
                 ErrorCode.INTERNAL_SERVER_ERROR.getMessage(),
                 HttpStatus.INTERNAL_SERVER_ERROR.value());
-        errorResponse.setDetails("An unexpected error occurred");
+        errorResponse.setDetails("Un error inesperado ha ocurrido");
         errorResponse.setPath(request.getRequestURI());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -78,7 +78,7 @@ public class ErrorController {
                 HttpStatus.BAD_REQUEST.value());
         errorResponse.setFieldErrors(fieldErrors);
         errorResponse.setPath(request.getRequestURI());
-        errorResponse.setDetails("One or more fields have validation errors");
+        errorResponse.setDetails("Uno o más campos tienen errores de validación");
 
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
@@ -109,7 +109,7 @@ public class ErrorController {
                 ErrorCode.METHOD_NOT_ALLOWED.getCode(),
                 ErrorCode.METHOD_NOT_ALLOWED.getMessage(),
                 HttpStatus.METHOD_NOT_ALLOWED.value());
-        errorResponse.setDetails("Supported methods: " + String.join(", ", ex.getSupportedMethods()));
+        errorResponse.setDetails("Métodos soportados: " + String.join(", ", ex.getSupportedMethods()));
         errorResponse.setPath(request.getRequestURI());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.METHOD_NOT_ALLOWED);
@@ -123,7 +123,7 @@ public class ErrorController {
                 ErrorCode.MALFORMED_REQUEST.getCode(),
                 ErrorCode.MALFORMED_REQUEST.getMessage(),
                 HttpStatus.BAD_REQUEST.value());
-        errorResponse.setDetails("Request body is malformed or missing");
+        errorResponse.setDetails("El cuerpo de la petición esta malformado o hace falta");
         errorResponse.setPath(request.getRequestURI());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
@@ -137,7 +137,7 @@ public class ErrorController {
                 ErrorCode.MISSING_PARAMETER.getCode(),
                 ErrorCode.MISSING_PARAMETER.getMessage(),
                 HttpStatus.BAD_REQUEST.value());
-        errorResponse.setDetails("Missing required parameter: " + ex.getParameterName());
+        errorResponse.setDetails("Hace falta el parametro requerido: " + ex.getParameterName());
         errorResponse.setPath(request.getRequestURI());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
@@ -151,7 +151,7 @@ public class ErrorController {
                 ErrorCode.INVALID_FORMAT.getCode(),
                 ErrorCode.INVALID_FORMAT.getMessage(),
                 HttpStatus.BAD_REQUEST.value());
-        errorResponse.setDetails("Invalid value for parameter: " + ex.getName());
+        errorResponse.setDetails("Valor invalido para parametro: " + ex.getName());
         errorResponse.setPath(request.getRequestURI());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
@@ -166,7 +166,7 @@ public class ErrorController {
                 ErrorCode.UNAUTHORIZED.getCode(),
                 ErrorCode.UNAUTHORIZED.getMessage(),
                 HttpStatus.UNAUTHORIZED.value());
-        errorResponse.setDetails("Authentication failed");
+        errorResponse.setDetails("Autenticación fallida");
         errorResponse.setPath(request.getRequestURI());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
@@ -180,7 +180,7 @@ public class ErrorController {
                 ErrorCode.FORBIDDEN.getCode(),
                 ErrorCode.FORBIDDEN.getMessage(),
                 HttpStatus.FORBIDDEN.value());
-        errorResponse.setDetails("Access denied to this resource");
+        errorResponse.setDetails("Acceso denegado a este recurso");
         errorResponse.setPath(request.getRequestURI());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
@@ -195,7 +195,7 @@ public class ErrorController {
                 ErrorCode.DATABASE_ERROR.getCode(),
                 ErrorCode.DATABASE_ERROR.getMessage(),
                 HttpStatus.INTERNAL_SERVER_ERROR.value());
-        errorResponse.setDetails("Database operation failed");
+        errorResponse.setDetails("Fallo en operación de base de datos");
         errorResponse.setPath(request.getRequestURI());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -210,7 +210,7 @@ public class ErrorController {
                 ErrorCode.INVALID_CREDENTIALS.getCode(),
                 ErrorCode.INVALID_CREDENTIALS.getMessage(),
                 HttpStatus.UNAUTHORIZED.value());
-        errorResponse.setDetails("The provided credentials are invalid");
+        errorResponse.setDetails("Las credenciales son inválidas");
         errorResponse.setPath(request.getRequestURI());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
@@ -224,7 +224,7 @@ public class ErrorController {
                 ErrorCode.RESOURCE_NOT_FOUND.getCode(),
                 "User not found",
                 HttpStatus.NOT_FOUND.value());
-        errorResponse.setDetails("The specified user does not exist");
+        errorResponse.setDetails("El usuario en especifico no exite");
         errorResponse.setPath(request.getRequestURI());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
@@ -238,7 +238,7 @@ public class ErrorController {
                 ErrorCode.AUTH_USER_DISABLED.getCode(),
                 "Account expired",
                 HttpStatus.UNAUTHORIZED.value());
-        errorResponse.setDetails("The user account has expired");
+        errorResponse.setDetails("La cuenta del usuario ha expirado");
         errorResponse.setPath(request.getRequestURI());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
@@ -252,7 +252,7 @@ public class ErrorController {
                 ErrorCode.AUTH_USER_DISABLED.getCode(),
                 "Account disabled",
                 HttpStatus.UNAUTHORIZED.value());
-        errorResponse.setDetails("The user account is disabled");
+        errorResponse.setDetails("La cuenta del usuario esta deshabilitada");
         errorResponse.setPath(request.getRequestURI());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
@@ -266,7 +266,7 @@ public class ErrorController {
                 ErrorCode.AUTH_USER_LOCKED.getCode(),
                 "Account locked",
                 HttpStatus.UNAUTHORIZED.value());
-        errorResponse.setDetails("The user account is locked");
+        errorResponse.setDetails("La cuenta del usuario esta asegurada");
         errorResponse.setPath(request.getRequestURI());
 
         return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
