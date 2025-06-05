@@ -1,5 +1,6 @@
 package co.edu.unicauca.distribuidos.core.programa.servicios.mapper;
 
+import co.edu.unicauca.distribuidos.core.programa.accesoADatos.modelos.NivelCompetencia;
 import org.springframework.stereotype.Component;
 
 import co.edu.unicauca.distribuidos.core.programa.accesoADatos.modelos.CompetenciaProgramaEntity;
@@ -22,7 +23,7 @@ public class ProgramaMapper {
         CompetenciaProgramaEntity entity = new CompetenciaProgramaEntity();
         entity.setCodigo(dto.getCodigo());
         entity.setDescripcion(dto.getDescripcion());
-        dto.setNivel(entity.getNivel().name());
+        entity.setNivel(NivelCompetencia.valueOf(dto.getNivel()));
         return entity;
     }
 

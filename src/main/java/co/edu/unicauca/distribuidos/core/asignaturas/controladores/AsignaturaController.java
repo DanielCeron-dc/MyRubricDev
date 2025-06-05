@@ -42,7 +42,7 @@ public class AsignaturaController {
      * Lista todas las asignaturas del programa
      */
     @GetMapping
-    @PreAuthorize("hasRole('COORDINATOR')")
+    @PreAuthorize("hasAnyRole('DOCENTE', 'COORDINADOR')")
     public ResponseEntity<List<AsignaturaDTO>> listarAsignaturas() {
         return ResponseEntity.ok(asignaturaService.listarAsignaturas());
     }
@@ -87,6 +87,12 @@ public class AsignaturaController {
         return new ResponseEntity<>(asignacion, HttpStatus.CREATED);
     }
 
+    @GetMapping("/competencias")
+    @PreAuthorize("hasAnyRole('DOCENTE', 'COORDINADOR')")
+    public ResponseEntity<List<CompetenciaAsignaturaDTO>> listarCompetencias() {
+        return ResponseEntity.ok(competenciaAsignaturaService.listarCompetencias());
+    }
+
     /**
      * Crea una nueva competencia para una asignatura
      * Permisos: Docente y coordinador
@@ -103,12 +109,22 @@ public class AsignaturaController {
      * Actualiza una competencia de asignatura
      * Permisos: Docente y coordinador
      */
-    @PutMapping("/competencia")
+    @PutMapping("/competencia/{id}")
     @PreAuthorize("hasAnyRole('DOCENTE', 'COORDINADOR')")
     public ResponseEntity<CompetenciaAsignaturaDTO> actualizarCompetenciaAsignatura(
-            @Valid @RequestBody CompetenciaAsignaturaRequestDTO request) {
+            @Valid @RequestBody CompetenciaAsignaturaRequestDTO request,
+            @PathVariable Integer id
+    ) {
+        if (request.getId() == null) request.setId(id);
         CompetenciaAsignaturaDTO competenciaActualizada = competenciaAsignaturaService.actualizarCompetencia(request);
         return ResponseEntity.ok(competenciaActualizada);
+    }
+
+
+    @GetMapping("/ras")
+    @PreAuthorize("hasAnyRole('DOCENTE', 'COORDINADOR')")
+    public ResponseEntity<List<ResultadoAsignaturaDTO>> listarResultadoAsignatura() {
+        return ResponseEntity.ok(resultadoAprendizajeService.listarCompetencias());
     }
 
     /**

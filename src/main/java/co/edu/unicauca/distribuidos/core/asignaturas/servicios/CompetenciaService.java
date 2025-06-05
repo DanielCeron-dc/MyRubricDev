@@ -3,6 +3,8 @@ package co.edu.unicauca.distribuidos.core.asignaturas.servicios;
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.CompetenciaAsignaturaDTO;
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.request.CompetenciaAsignaturaRequestDTO;
 
+import java.util.List;
+
 public interface CompetenciaService {
     /**
      * Crea una nueva competencia para una asignatura.
@@ -19,4 +21,6 @@ public interface CompetenciaService {
      * @return La entidad de la competencia actualizada.
      */
     CompetenciaAsignaturaDTO actualizarCompetencia(CompetenciaAsignaturaRequestDTO request);
+
+    List<CompetenciaAsignaturaDTO> listarCompetencias();
 }

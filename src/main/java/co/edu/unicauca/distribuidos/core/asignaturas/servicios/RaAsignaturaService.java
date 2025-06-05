@@ -1,8 +1,11 @@
 package co.edu.unicauca.distribuidos.core.asignaturas.servicios;
 
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.CompetenciaAsignaturaDTO;
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.ResultadoAsignaturaDTO;
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.request.RAActualizarRequestTO;
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.request.RACrearRequestDTO;
+
+import java.util.List;
 
 /**
  *
@@ -24,4 +27,6 @@ public interface RaAsignaturaService {
      * @return
      */
     ResultadoAsignaturaDTO actualizarRA(RAActualizarRequestTO request);
+
+    List<ResultadoAsignaturaDTO> listarCompetencias();
 }

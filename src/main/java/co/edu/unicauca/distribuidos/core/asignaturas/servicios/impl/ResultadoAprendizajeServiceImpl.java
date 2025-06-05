@@ -25,6 +25,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ResultadoAprendizajeServiceImpl implements RaAsignaturaService {
@@ -38,6 +42,7 @@ public class ResultadoAprendizajeServiceImpl implements RaAsignaturaService {
 
     private final ResultadoAsignaturaMapper resultadoAsignaturaMapper;
     private final CompetenciaAsignaturaMapper competenciaAsignaturaMapper;
+
 
     @Transactional
     public ResultadoAsignaturaDTO crearRA(RACrearRequestDTO request) {
@@ -69,6 +74,16 @@ public class ResultadoAprendizajeServiceImpl implements RaAsignaturaService {
         ResultadoAsignaturaEntity actResultado = resultadoAsignaturaMapper.toEntity(request, null);
         ResultadoAsignaturaEntity persisted = raRepository.save(actResultado);
         return resultadoAsignaturaMapper.toDTO(persisted, competenciaAsignaturaMapper.toDTO(persisted.getCompetencia()));
+    }
+
+    @Override
+    public List<ResultadoAsignaturaDTO> listarCompetencias() {
+        List<ResultadoAsignaturaEntity> resultados = raRepository.findAll();
+        List<ResultadoAsignaturaDTO> resultadoDTOs = new LinkedList<>();
+        for (ResultadoAsignaturaEntity resultado : resultados) {
+            resultadoDTOs.add(resultadoAsignaturaMapper.toDTO(resultado, competenciaAsignaturaMapper.toDTO(resultado.getCompetencia())));
+        }
+        return resultadoDTOs;
     }
 
     private void validarPermisos(Integer competenciaId) {

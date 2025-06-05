@@ -28,6 +28,9 @@ public class AsignaturaServiceImpl implements AsignaturaService {
     @Override
     @Transactional
     public AsignaturaDTO crearAsignatura(AsignaturaRequestDTO request) {
+        if (asignaturaRepository.findByCodigo(request.getCodigo()).isPresent()) {
+            throw new BusinessException(ErrorCode.RESOURCE_ALREADY_EXISTS, "Ya existe una asignatura con el codigo " + request.getCodigo());
+        }
         AsignaturaEntity asignatura = asignaturaMapper.toEntity(request);
         AsignaturaEntity persisted = asignaturaRepository.save(asignatura);
         return asignaturaMapper.toDTO(persisted);

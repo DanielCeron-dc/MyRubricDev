@@ -13,10 +13,13 @@ import co.edu.unicauca.distribuidos.core.programa.accesoADatos.repositorios.Comp
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CompetenciaServiceImpl implements CompetenciaService {
-
 
     private final CompetenciaAsignaturaRepository competenciaAsignaturaRepository;
     private final CompetenciaProgramaRepository competenciaProgramaRepository;
@@ -39,6 +42,25 @@ public class CompetenciaServiceImpl implements CompetenciaService {
 
     @Override
     public CompetenciaAsignaturaDTO actualizarCompetencia(CompetenciaAsignaturaRequestDTO request) {
-        return null;
+        if (request.getId() == null) {
+            throw new BusinessException(ErrorCode.MISSING_PARAMETER, "No se ha proporcionado la id de la competencia");
+        }
+        CompetenciaAsignaturaEntity oldCompentencia = competenciaAsignaturaRepository.findById(request.getId()).orElse(null);
+        if (oldCompentencia == null) {
+            throw  new BusinessException(ErrorCode.RESOURCE_NOT_FOUND, "No existe una competencia con el id" + request.getId());
+        }
+        CompetenciaAsignaturaEntity replacing = compMapper.toEntity(request, oldCompentencia.getCompetenciaPrograma());
+        CompetenciaAsignaturaEntity persisted = competenciaAsignaturaRepository.save(replacing);
+        return compMapper.toDTO(persisted);
+    }
+
+    @Override
+    public List<CompetenciaAsignaturaDTO> listarCompetencias() {
+        List<CompetenciaAsignaturaEntity> competencias = competenciaAsignaturaRepository.findAll();
+        List<CompetenciaAsignaturaDTO> competenciaAsignaturaDTOS = new LinkedList<>();
+        for (CompetenciaAsignaturaEntity competencia : competencias) {
+            competenciaAsignaturaDTOS.add(compMapper.toDTO(competencia));
+        }
+        return competenciaAsignaturaDTOS;
     }
 }

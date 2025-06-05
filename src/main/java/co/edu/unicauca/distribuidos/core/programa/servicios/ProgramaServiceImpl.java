@@ -30,6 +30,7 @@ public class ProgramaServiceImpl implements ProgramaService {
 
     @Override
     public CompetenciaProgramaDTO crearCompetencia(CrearEditarCompetenciaProgramaDTO dto) {
+        System.out.println(dto);
         CompetenciaProgramaEntity entity = mapper.toEntity(dto);
         return mapper.toDTO(competenciaRepo.save(entity));
     }

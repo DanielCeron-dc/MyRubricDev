@@ -2,6 +2,7 @@ package co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.repositorios;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -19,4 +20,6 @@ public interface AsignaturaRepository extends JpaRepository<AsignaturaEntity, In
     // Obtener asignatura con sus relaciones
     @EntityGraph(attributePaths = {"competencias", "resultados", "asignacionesDocente"})
     Optional<AsignaturaEntity> findWithRelationsById(Integer id);
+
+    Optional<AsignaturaEntity> findByCodigo(@NotNull(message = "El codigo de Asignatura es obligatorio") String codigo);
 }
