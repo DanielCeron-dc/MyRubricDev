@@ -34,6 +34,22 @@ import java.util.ArrayList;
 @RestControllerAdvice
 public class ErrorController {
 
+
+    // Generic exception handler - should be last
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleAllExceptions(
+            Exception ex, HttpServletRequest request) {
+
+        ErrorResponse errorResponse = new ErrorResponse(
+                ErrorCode.INTERNAL_SERVER_ERROR.getCode(),
+                ErrorCode.INTERNAL_SERVER_ERROR.getMessage(),
+                HttpStatus.INTERNAL_SERVER_ERROR.value());
+        errorResponse.setDetails("An unexpected error occurred");
+        errorResponse.setPath(request.getRequestURI());
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ErrorResponse> handleBusinessException(
             BusinessException ex, HttpServletRequest request) {
@@ -185,20 +201,6 @@ public class ErrorController {
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    // Generic exception handler - should be last
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleAllExceptions(
-            Exception ex, HttpServletRequest request) {
-
-        ErrorResponse errorResponse = new ErrorResponse(
-                ErrorCode.INTERNAL_SERVER_ERROR.getCode(),
-                ErrorCode.INTERNAL_SERVER_ERROR.getMessage(),
-                HttpStatus.INTERNAL_SERVER_ERROR.value());
-        errorResponse.setDetails("An unexpected error occurred");
-        errorResponse.setPath(request.getRequestURI());
-
-        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
 
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ErrorResponse> handleBadCredentials(

@@ -56,8 +56,8 @@ public class JwtTokenProvider {
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         List<String> authorities = userDetails.getAuthorities().stream()
-            .map(GrantedAuthority::getAuthority)
-            .collect(Collectors.toList());
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
         log.debug("Generating token for user: {} with authorities: {}", userDetails.getUsername(), authorities);
         claims.put("authorities", authorities);
 
@@ -67,7 +67,7 @@ public class JwtTokenProvider {
     /**
      * Create a token with the given claims and subject
      *
-     * @param claims additional claims to include in the token
+     * @param claims  additional claims to include in the token
      * @param subject the subject (typically username)
      * @return the JWT token as a string
      */
@@ -117,7 +117,7 @@ public class JwtTokenProvider {
     /**
      * Extract a specific claim from a JWT token
      *
-     * @param token the JWT token
+     * @param token          the JWT token
      * @param claimsResolver the function to extract a specific claim
      * @return the extracted claim
      */
@@ -154,7 +154,7 @@ public class JwtTokenProvider {
     /**
      * Validate a JWT token
      *
-     * @param token the JWT token
+     * @param token       the JWT token
      * @param userDetails the user details
      * @return true if the token is valid, false otherwise
      */
@@ -170,38 +170,23 @@ public class JwtTokenProvider {
      * @return true if the token is valid, false otherwise
      */
     public boolean validateToken(String token) {
-        try {
-            Claims claims = getAllClaimsFromToken(token);
-            @SuppressWarnings("unchecked")
-            List<String> authorities = (List<String>) claims.get("authorities");
-            log.debug("Validating token with authorities: {}", authorities);
-            
-            // Check if token is expired and has authorities
-            if (isTokenExpired(token)) {
-                log.error("JWT token is expired");
-                return false;
-            }
-            
-            if (authorities == null || authorities.isEmpty()) {
-                log.error("JWT token does not contain authorities");
-                return false;
-            }
-            
-            return true;
-        } catch (SignatureException ex) {
-            log.error("Invalid JWT signature");
-        } catch (MalformedJwtException ex) {
-            log.error("Invalid JWT token");
-        } catch (ExpiredJwtException ex) {
-            log.error("Expired JWT token");
-        } catch (UnsupportedJwtException ex) {
-            log.error("Unsupported JWT token");
-        } catch (IllegalArgumentException ex) {
-            log.error("JWT claims string is empty");
-        } catch (Exception e) {
-            log.error("Error validating token", e);
+        Claims claims = getAllClaimsFromToken(token);
+        @SuppressWarnings("unchecked")
+        List<String> authorities = (List<String>) claims.get("authorities");
+        log.debug("Validating token with authorities: {}", authorities);
+
+        // Check if token is expired and has authorities
+        if (isTokenExpired(token)) {
+            log.error("JWT token is expired");
+            return false;
         }
-        return false;
+
+        if (authorities == null || authorities.isEmpty()) {
+            log.error("JWT token does not contain authorities");
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -212,7 +197,7 @@ public class JwtTokenProvider {
     public long getJwtExpirationMs() {
         return jwtExpirationMs;
     }
-    
+
     /**
      * Get authorities from the JWT token
      *
@@ -228,8 +213,8 @@ public class JwtTokenProvider {
             return Collections.emptyList();
         }
         return authorities.stream()
-            .map(SimpleGrantedAuthority::new)
-            .collect(Collectors.toList());
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
 }
 

@@ -83,26 +83,25 @@ public class SecurityConfig {
             .headers(headers -> headers.disable())
             .csrf(AbstractHttpConfigurer::disable)
             .cors(Customizer.withDefaults())
-            
             .authorizeHttpRequests(auth -> auth
                 // Only configure truly public endpoints here
                 .requestMatchers(ALWAYS_PUBLIC_ENDPOINTS).permitAll()
                 // Explicitly allow auth endpoints with different path patterns
                 .requestMatchers("/api/auth/**", "/auth/**").permitAll()
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // CORS preflight
-                
+
                 // Everything else requires authentication - authorization handled by method annotations
                 .anyRequest().authenticated()
             )
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 
-            .sessionManagement(session -> 
+            .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
             .exceptionHandling(exception -> exception
-                .authenticationEntryPoint(unauthorizedHandler))
+                    .authenticationEntryPoint(unauthorizedHandler))
+            .authenticationProvider(authenticationProvider);
 
-            .authenticationProvider(authenticationProvider)
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -116,7 +115,7 @@ public class SecurityConfig {
         configuration.setExposedHeaders(List.of("Authorization"));
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
-        
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

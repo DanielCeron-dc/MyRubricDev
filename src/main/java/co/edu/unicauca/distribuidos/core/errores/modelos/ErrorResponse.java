@@ -2,11 +2,19 @@
 package co.edu.unicauca.distribuidos.core.errores.modelos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+@Setter
+@Getter
 public class ErrorResponse {
+    // Getters and setters
     private boolean success;
     private String errorCode;
     private String message;
@@ -30,31 +38,4 @@ public class ErrorResponse {
         this.httpStatus = httpStatus;
     }
 
-    // Getters and setters
-    public boolean isSuccess() { return success; }
-    public void setSuccess(boolean success) { this.success = success; }
-
-    public String getErrorCode() { return errorCode; }
-    public void setErrorCode(String errorCode) { this.errorCode = errorCode; }
-
-    public String getMessage() { return message; }
-    public void setMessage(String message) { this.message = message; }
-
-    public String getDetails() { return details; }
-    public void setDetails(String details) { this.details = details; }
-
-    public int getHttpStatus() { return httpStatus; }
-    public void setHttpStatus(int httpStatus) { this.httpStatus = httpStatus; }
-
-    public String getPath() { return path; }
-    public void setPath(String path) { this.path = path; }
-
-    public LocalDateTime getTimestamp() { return timestamp; }
-    public void setTimestamp(LocalDateTime timestamp) { this.timestamp = timestamp; }
-
-    public Map<String, String> getFieldErrors() { return fieldErrors; }
-    public void setFieldErrors(Map<String, String> fieldErrors) { this.fieldErrors = fieldErrors; }
-
-    public List<String> getValidationErrors() { return validationErrors; }
-    public void setValidationErrors(List<String> validationErrors) { this.validationErrors = validationErrors; }
 }
