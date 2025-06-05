@@ -5,13 +5,15 @@ import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.modelos.Compet
 import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.modelos.ResultadoAsignaturaEntity;
 import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.repositorios.AsignacionAsignaturaRepository;
 import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.repositorios.ResultadosAsignaturaRepository;
-import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.ResultadoAprendizajeDTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.ResultadoAsignaturaDTO;
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.request.RAActualizarRequestTO;
 import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.repositorios.CompetenciaAsignaturaRepository;
 
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.request.RACrearRequestDTO;
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.PeriodoAcademicoService;
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.RaAsignaturaService;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.mapper.CompetenciaAsignaturaMapper;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.mapper.ResultadoAsignaturaMapper;
 import co.edu.unicauca.distribuidos.core.errores.BusinessException;
 import co.edu.unicauca.distribuidos.core.errores.modelos.ErrorCode;
 import co.edu.unicauca.distribuidos.core.programa.accesoADatos.repositorios.ResultadoProgramaRepository;
@@ -34,49 +36,39 @@ public class ResultadoAprendizajeServiceImpl implements RaAsignaturaService {
     private final AsignacionAsignaturaRepository asignacionRepository;
     private final DocenteRepositoryJPA docenteRepositoryJPA;
 
-    @Transactional
-    public ResultadoAprendizajeDTO crearRA(RACrearRequestDTO request) {
-        validarPermisos(request.getCompetenciaId());
+    private final ResultadoAsignaturaMapper resultadoAsignaturaMapper;
+    private final CompetenciaAsignaturaMapper competenciaAsignaturaMapper;
 
-        CompetenciaAsignaturaEntity competencia = competenciaRepository.findById(request.getCompetenciaId())
+    @Transactional
+    public ResultadoAsignaturaDTO crearRA(RACrearRequestDTO request) {
+        validarPermisos(request.getIdCompetencia());
+
+        CompetenciaAsignaturaEntity competencia = competenciaRepository.findById(request.getIdCompetencia())
                 .orElseThrow(() -> new BusinessException(ErrorCode.RESOURCE_NOT_FOUND, "La competencia no existe"));
 
-        ResultadoAsignaturaEntity ra = new ResultadoAsignaturaEntity();
-        ra.setDescripcion(request.getDescripcion());
-        ra.setCompetencia(competencia);
-
+        ResultadoAsignaturaEntity ra = resultadoAsignaturaMapper.toEntity(request, competencia);
         ResultadoAsignaturaEntity persisted = raRepository.save(ra);
-        ResultadoAprendizajeDTO returnDto = new ResultadoAprendizajeDTO();
-        returnDto.setId(persisted.getId());
-        returnDto.setDescripcion(persisted.getDescripcion());
-        returnDto.setCompetenciaAsignaturaId(persisted.getId());
-        return returnDto;
+        return resultadoAsignaturaMapper.toDTO(persisted, competenciaAsignaturaMapper.toDTO(persisted.getCompetencia()));
     }
 
     @Override
     @Transactional
-    public ResultadoAprendizajeDTO actualizarRA(RAActualizarRequestTO request) {
-        validarPermisos(request.getCompetenciaId());
+    public ResultadoAsignaturaDTO actualizarRA(RAActualizarRequestTO request) {
+        validarPermisos(request.getIdCompetencia());
 
         ResultadoAsignaturaEntity ra = raRepository.findById(request.getId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.RESOURCE_NOT_FOUND, "Resultado de aprendizaje no existe"));
 
-        ra.setDescripcion(request.getDescripcion());
-
-        if (!ra.getCompetencia().getId().equals(request.getCompetenciaId())) {
+        if (!ra.getCompetencia().getId().equals(request.getIdCompetencia())) {
             CompetenciaAsignaturaEntity nuevaCompetencia = competenciaRepository
-                    .findById(request.getCompetenciaId())
+                    .findById(request.getIdCompetencia())
                     .orElseThrow(() -> new BusinessException(ErrorCode.RESOURCE_NOT_FOUND, "La competencia no existe"));
             ra.setCompetencia(nuevaCompetencia);
         }
 
-
-        ResultadoAsignaturaEntity persisted = raRepository.save(ra);
-        ResultadoAprendizajeDTO returnDto = new ResultadoAprendizajeDTO();
-        returnDto.setId(persisted.getId());
-        returnDto.setDescripcion(persisted.getDescripcion());
-        returnDto.setCompetenciaAsignaturaId(persisted.getId());
-        return returnDto;
+        ResultadoAsignaturaEntity actResultado = resultadoAsignaturaMapper.toEntity(request, null);
+        ResultadoAsignaturaEntity persisted = raRepository.save(actResultado);
+        return resultadoAsignaturaMapper.toDTO(persisted, competenciaAsignaturaMapper.toDTO(persisted.getCompetencia()));
     }
 
     private void validarPermisos(Integer competenciaId) {

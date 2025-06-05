@@ -6,7 +6,7 @@ import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.modelos.Compet
 import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.repositorios.AsignacionAsignaturaRepository;
 import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.repositorios.AsignaturaRepository;
 import co.edu.unicauca.distribuidos.core.asignaturas.accesoADatos.repositorios.CompetenciaAsignaturaRepository;
-import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.AsignacionDocenteCompetenciaDTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.AsignacionAsignaturaDTO;
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.AsignacionService;
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.PeriodoAcademicoService;
 import co.edu.unicauca.distribuidos.core.errores.BusinessException;
@@ -33,7 +33,7 @@ public class AsignacionServiceImpl implements AsignacionService {
 
     @Transactional
     @Override
-    public AsignacionDocenteCompetenciaDTO asignarDocenteCompetencia(Integer docenteId, Integer asignaturaId, Integer competenciaId) {
+    public AsignacionAsignaturaDTO asignarDocenteCompetencia(Integer docenteId, Integer asignaturaId, Integer competenciaId) {
         DocenteEntity docente = docenteRepository.findById(docenteId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.RESOURCE_NOT_FOUND, "Docente no encontrado"));
 
@@ -60,7 +60,7 @@ public class AsignacionServiceImpl implements AsignacionService {
         asignacion.setPeriodo(periodoActual);
 
         AsignacionAsignaturaEntity persisted = asignacionRepository.save(asignacion);
-        AsignacionDocenteCompetenciaDTO returnDto = new AsignacionDocenteCompetenciaDTO();
+        AsignacionAsignaturaDTO returnDto = new AsignacionAsignaturaDTO();
         returnDto.setAsignaturaId(asignatura.getId());
         returnDto.setCompetenciaId(competencia.getId());
         returnDto.setDocenteId(docente.getId());

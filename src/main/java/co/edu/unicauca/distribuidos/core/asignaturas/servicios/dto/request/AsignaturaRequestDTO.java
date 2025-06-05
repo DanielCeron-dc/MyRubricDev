@@ -18,7 +18,8 @@ public class AsignaturaRequestDTO {
     @NotNull(message = "Los créditos son obligatorios")
     @Positive(message = "Los créditos deben ser un número positivo")
     private Integer creditos;
-    
+
+    @NotNull(message = "Los objetivos son obligatorios")
     private String objetivos;
     
     @NotNull(message = "El semestre es obligatorio")

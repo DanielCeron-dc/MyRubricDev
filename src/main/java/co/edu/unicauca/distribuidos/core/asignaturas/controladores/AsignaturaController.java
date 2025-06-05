@@ -1,9 +1,9 @@
 package co.edu.unicauca.distribuidos.core.asignaturas.controladores;
 
-import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.AsignacionDocenteCompetenciaDTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.AsignacionAsignaturaDTO;
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.AsignaturaDTO;
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.CompetenciaAsignaturaDTO;
-import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.ResultadoAprendizajeDTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.ResultadoAsignaturaDTO;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.http.HttpStatus;
@@ -77,9 +77,9 @@ public class AsignaturaController {
      */
     @PostMapping("/asignar")
     @PreAuthorize("hasRole('COORDINADOR')")
-    public ResponseEntity<AsignacionDocenteCompetenciaDTO> asignarDocenteCompetencia(
+    public ResponseEntity<AsignacionAsignaturaDTO> asignarDocenteCompetencia(
             @Valid @RequestBody AsignacionRequestDTO request) {
-        AsignacionDocenteCompetenciaDTO asignacion = asignacionService.asignarDocenteCompetencia(
+        AsignacionAsignaturaDTO asignacion = asignacionService.asignarDocenteCompetencia(
                 request.getDocenteId(),
                 request.getAsignaturaId(),
                 request.getCompetenciaId()
@@ -117,9 +117,9 @@ public class AsignaturaController {
      */
     @PostMapping("/ra")
     @PreAuthorize("hasAnyRole('DOCENTE', 'COORDINADOR')")
-    public ResponseEntity<ResultadoAprendizajeDTO> crearResultadoAprendizaje(
+    public ResponseEntity<ResultadoAsignaturaDTO> crearResultadoAprendizaje(
             @Valid @RequestBody RACrearRequestDTO request) {
-        ResultadoAprendizajeDTO ra = resultadoAprendizajeService.crearRA(request);
+        ResultadoAsignaturaDTO ra = resultadoAprendizajeService.crearRA(request);
         return new ResponseEntity<>(ra, HttpStatus.CREATED);
     }
 
@@ -129,9 +129,9 @@ public class AsignaturaController {
      */
     @PutMapping("/ra")
     @PreAuthorize("hasAnyRole('DOCENTE', 'COORDINADOR')")
-    public ResponseEntity<ResultadoAprendizajeDTO> actualizarResultadoAprendizaje(
+    public ResponseEntity<ResultadoAsignaturaDTO> actualizarResultadoAprendizaje(
             @Valid @RequestBody RAActualizarRequestTO request) {
-        ResultadoAprendizajeDTO raActualizado = resultadoAprendizajeService.actualizarRA(request);
+        ResultadoAsignaturaDTO raActualizado = resultadoAprendizajeService.actualizarRA(request);
         return ResponseEntity.ok(raActualizado);
     }
 }

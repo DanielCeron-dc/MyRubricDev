@@ -1,6 +1,6 @@
 package co.edu.unicauca.distribuidos.core.asignaturas.servicios;
 
-import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.ResultadoAprendizajeDTO;
+import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.ResultadoAsignaturaDTO;
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.request.RAActualizarRequestTO;
 import co.edu.unicauca.distribuidos.core.asignaturas.servicios.dto.request.RACrearRequestDTO;
 
@@ -15,7 +15,7 @@ public interface RaAsignaturaService {
      * @param request
      * @return
      */
-    ResultadoAprendizajeDTO crearRA(RACrearRequestDTO request);
+    ResultadoAsignaturaDTO crearRA(RACrearRequestDTO request);
 
     /**
      * Modifica un resultado de aprendizaje de asignatura
@@ -23,5 +23,5 @@ public interface RaAsignaturaService {
      * @param request
      * @return
      */
-    ResultadoAprendizajeDTO actualizarRA(RAActualizarRequestTO request);
+    ResultadoAsignaturaDTO actualizarRA(RAActualizarRequestTO request);
 }

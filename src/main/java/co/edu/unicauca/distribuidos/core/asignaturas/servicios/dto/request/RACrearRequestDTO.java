@@ -12,10 +12,10 @@ public class RACrearRequestDTO {
     @NotBlank(message = "La descripción es obligatoria")
     private String descripcion;
 
-    @NotNull(message = "El ID de la competencia es obligatorio")
-    private Integer competenciaId;
+    @NotBlank(message = "El codigo es obligatorio")
+    private String codigo;
 
-    @NotNull(message = "El ID del resultado de programa es obligatorio")
-    private Integer resultadoProgramaId;
+    @NotNull(message = "El ID de la competencia es obligatorio")
+    private Integer idCompetencia;
 
 }

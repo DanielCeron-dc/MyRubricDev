@@ -10,8 +10,6 @@ public class CompetenciaAsignaturaRequestDTO {
 
     private Integer id;
 
-    @NotNull(message = "El ID de la competencia de programa es obligatorio")
-    private Integer competenciaProgramaId;
 
     @NotNull(message = "La competencia necesita una descripcion")
     private String descripcion;
@@ -19,7 +17,6 @@ public class CompetenciaAsignaturaRequestDTO {
     @NotNull(message = "La competencia necesita un codigo")
     private String codigo;
 
-    @NotNull(message = "El ID de la asignatura es obligatorio")
-    private Integer asignaturaId;
-
+    @NotNull(message = "El ID de la competencia de programa es obligatorio")
+    private Integer competenciaProgramaId;
 }

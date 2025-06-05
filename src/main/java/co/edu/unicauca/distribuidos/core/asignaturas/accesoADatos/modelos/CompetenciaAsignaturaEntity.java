@@ -31,12 +31,6 @@ public class CompetenciaAsignaturaEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @NotNull
-    @JoinColumn(name = "ID_ASIGNATURA")
-    private AsignaturaEntity asignatura;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.RESTRICT)
-    @NotNull
     @JoinColumn(name = "ID_COMPETENCIA")
     private CompetenciaProgramaEntity competenciaPrograma;
 

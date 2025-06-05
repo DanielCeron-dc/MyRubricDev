@@ -9,42 +9,27 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CompetenciaAsignaturaMapper {
+    // RequestDTO -> Entity
+    public CompetenciaAsignaturaEntity toEntity(CompetenciaAsignaturaRequestDTO dto, CompetenciaProgramaEntity competenciaProgramaEntity) {
+        if (dto == null || competenciaProgramaEntity == null) return null;
 
-    public CompetenciaAsignaturaEntity toEntity(CompetenciaAsignaturaRequestDTO dto) {
         CompetenciaAsignaturaEntity entity = new CompetenciaAsignaturaEntity();
-        if (dto.getId() != null) {
-            entity.setId(dto.getId());
-        }
-        // Crea instancias mínimas de las entidades relacionadas
-        AsignaturaEntity asignatura = new AsignaturaEntity();
-        asignatura.setId(dto.getAsignaturaId());
-
-        CompetenciaProgramaEntity competencia = new CompetenciaProgramaEntity();
-        competencia.setId(dto.getCompetenciaProgramaId());
-
-        competencia.setDescripcion(dto.getDescripcion());
-        competencia.setCodigo(dto.getCodigo());
-
-
-        // Asignar las relaciones
-        entity.setAsignatura(asignatura);
-        entity.setCompetenciaPrograma(competencia);
-
+        entity.setId(dto.getId());
+        entity.setCodigo(dto.getCodigo());
+        entity.setDescripcion(dto.getDescripcion());
+        entity.setCompetenciaPrograma(competenciaProgramaEntity);
         return entity;
     }
 
+    // Entity -> DTO
     public CompetenciaAsignaturaDTO toDTO(CompetenciaAsignaturaEntity entity) {
+        if (entity == null || entity.getCompetenciaPrograma() == null) return null;
+
         CompetenciaAsignaturaDTO dto = new CompetenciaAsignaturaDTO();
         dto.setId(entity.getId());
-
-        if (entity.getAsignatura() != null) {
-            dto.setAsignaturaId(entity.getAsignatura().getId());
-        }
-
-        if (entity.getCompetenciaPrograma() != null) {
-            dto.setCompetenciaProgramaId(entity.getCompetenciaPrograma().getId());
-        }
-
+        dto.setCodigo(entity.getCodigo());
+        dto.setDescripcion(entity.getDescripcion());
+        dto.setCompetenciaProgramaId(entity.getCompetenciaPrograma().getId());
         return dto;
     }
 }

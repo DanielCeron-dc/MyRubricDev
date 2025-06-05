@@ -3,7 +3,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class AsignacionDocenteCompetenciaDTO {
+public class AsignacionAsignaturaDTO {
     @NotNull(message = "El ID del docente es obligatorio")
     private Integer docenteId;
     
